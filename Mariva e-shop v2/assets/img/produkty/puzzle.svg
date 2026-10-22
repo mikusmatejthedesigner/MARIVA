@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" role="img" aria-label="Skládačka s fotkou">
+<g transform="rotate(-6 300 300)">
+<clipPath id="f150150"><rect x="150" y="150" width="300" height="300" rx="8"/></clipPath>
+  <g clip-path="url(#f150150)">
+    <rect x="150" y="150" width="300" height="300" fill="#BFE7F8"/>
+    <circle cx="366.0" cy="246.0" r="36.0" fill="#FFD200"/>
+    <path d="M150 366.0 C225.0 294.0 285.0 306.0 336.0 348.0 C384.0 318.0 426.0 324.0 450 342.0 V450 H150 Z" fill="#00A3E0"/>
+    <path d="M150 408.0 C240.0 360.0 330.0 384.0 450 396.0 V450 H150 Z" fill="#1B1424"/>
+  </g>
+  <rect x="150" y="150" width="300" height="300" rx="8" fill="none" stroke="#1B1424" stroke-opacity=".5" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M250.0 150.0 V188.0 a12.0 12.0 0 1 1 0 24.0 V250.0 M250.0 250.0 V288.0 a12.0 12.0 0 1 0 0 24.0 V350.0 M250.0 350.0 V388.0 a12.0 12.0 0 1 1 0 24.0 V450.0 M150.0 250.0 H188.0 a12.0 12.0 0 1 0 24.0 0 H250.0 M250.0 250.0 H288.0 a12.0 12.0 0 1 1 24.0 0 H350.0 M350.0 250.0 H388.0 a12.0 12.0 0 1 0 24.0 0 H450.0 M350.0 150.0 V188.0 a12.0 12.0 0 1 0 0 24.0 V250.0 M350.0 250.0 V288.0 a12.0 12.0 0 1 1 0 24.0 V350.0 M350.0 350.0 V388.0 a12.0 12.0 0 1 0 0 24.0 V450.0 M150.0 350.0 H188.0 a12.0 12.0 0 1 1 24.0 0 H250.0 M250.0 350.0 H288.0 a12.0 12.0 0 1 0 24.0 0 H350.0 M350.0 350.0 H388.0 a12.0 12.0 0 1 1 24.0 0 H450.0" fill="none" stroke="#fff" stroke-opacity=".75" stroke-width="2.4"/>
+</g>
+</svg>

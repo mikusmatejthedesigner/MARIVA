@@ -1,0 +1,49 @@
+{
+  "id": "tricko",
+  "nazev": "Tričko s vlastním potiskem",
+  "kratce": "Tričko",
+  "poznamka": "Ceny podle ceníku na tiskarnamariva.cz (vlastní barevný potisk vpředu, s DPH 21 %). Velikosti, barvy a rozměry potisku jsou návrh k ověření.",
+  "pohledy": [
+    {"id": "predek", "nazev": "Přední strana"}
+  ],
+  "rozmery": {"sirkaCm": 52},
+  "potisk": {"sirkaCm": 30, "vyskaCm": 40, "odShoraCm": 7},
+  "velkeMnozstviOd": 20,
+  "typy": [
+    {
+      "id": "klasicke",
+      "nazev": "Klasické",
+      "popis": "Rovný unisex střih",
+      "cena": 250,
+      "velikosti": ["S", "M", "L", "XL", "XXL", "3XL"]
+    },
+    {
+      "id": "damske",
+      "nazev": "Dámské",
+      "popis": "Užší, vypasovaný střih",
+      "cena": 270,
+      "velikosti": ["XS", "S", "M", "L", "XL", "XXL"],
+      "rozmery": {"sirkaCm": 46},
+      "potisk": {"sirkaCm": 26, "vyskaCm": 35, "odShoraCm": 6}
+    },
+    {
+      "id": "detske",
+      "nazev": "Dětské",
+      "popis": "Pro děti od 3 do 12 let",
+      "cena": 195,
+      "velikosti": ["98", "110", "122", "134", "146", "158"],
+      "rozmery": {"sirkaCm": 38},
+      "potisk": {"sirkaCm": 20, "vyskaCm": 27, "odShoraCm": 5}
+    }
+  ],
+  "barvy": [
+    {"id": "bila", "nazev": "Bílá", "hex": "#ffffff"},
+    {"id": "cerna", "nazev": "Černá", "hex": "#1c1c1e"},
+    {"id": "sedy-melir", "nazev": "Šedý melír", "hex": "#b8b8b4"},
+    {"id": "namornicka", "nazev": "Námořní modrá", "hex": "#1f2840"},
+    {"id": "kralovska", "nazev": "Královská modrá", "hex": "#2a4c9c"},
+    {"id": "cervena", "nazev": "Červená", "hex": "#b1232c"},
+    {"id": "lahvove-zelena", "nazev": "Lahvově zelená", "hex": "#1e4a38"},
+    {"id": "zluta", "nazev": "Žlutá", "hex": "#efc23a"}
+  ]
+}

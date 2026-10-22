@@ -1,0 +1,25 @@
+{
+  "zdroje": {
+    "predek": {
+      "soubor": "predek.webp?v=b48744da",
+      "linky": "predek-linky.webp?v=d76dfe5f",
+      "sirka": 1312,
+      "vyska": 1510
+    }
+  },
+  "typy": {
+    "kapuce": {
+      "predek": {
+        "zdroj": "predek",
+        "oblast": {
+          "x": 0.3839,
+          "y": 0.4351,
+          "w": 0.2321,
+          "h": 0.2689,
+          "sirkaCm": 26.4,
+          "vyskaCm": 35.2
+        }
+      }
+    }
+  }
+}

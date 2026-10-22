@@ -1,0 +1,51 @@
+{
+  "zdroje": {
+    "predek": {
+      "soubor": "predek.webp?v=817651d1",
+      "linky": "predek-linky.webp?v=06556a50",
+      "sirka": 2030,
+      "vyska": 1800
+    }
+  },
+  "typy": {
+    "klasicke": {
+      "predek": {
+        "zdroj": "predek",
+        "oblast": {
+          "x": 0.3401,
+          "y": 0.2561,
+          "w": 0.3189,
+          "h": 0.4795,
+          "sirkaCm": 30.0,
+          "vyskaCm": 40.0
+        }
+      }
+    },
+    "damske": {
+      "predek": {
+        "zdroj": "predek",
+        "oblast": {
+          "x": 0.3433,
+          "y": 0.2533,
+          "w": 0.3124,
+          "h": 0.4743,
+          "sirkaCm": 26.0,
+          "vyskaCm": 35.0
+        }
+      }
+    },
+    "detske": {
+      "predek": {
+        "zdroj": "predek",
+        "oblast": {
+          "x": 0.3541,
+          "y": 0.2544,
+          "w": 0.2909,
+          "h": 0.4429,
+          "sirkaCm": 20.0,
+          "vyskaCm": 27.0
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Produkt s potiskem | Tiskárna MARIVA</title>
+  <meta name="description" content="Produkt s vlastním potiskem od Tiskárny MARIVA. Pošlete nezávaznou poptávku a my vám pošleme cenu a návrh.">
+  <meta name="theme-color" content="#E4007C">
+  <link rel="preload" href="assets/fonts/archivo-latin-standard-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/css/styl.css?v=0dd78efe">
+  <link rel="icon" href="assets/img/znacka/ikona.svg" type="image/svg+xml">
+</head>
+<body>
+  <!-- casti:ikony -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-kosik" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M6 8h12l-1 12H7L6 8Zm3 0V6a3 3 0 0 1 6 0v2"/></symbol>
+    <symbol id="i-kalendar" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M4 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7Zm0 4h16M8 3v4m8-4v4m-8 8h3"/></symbol>
+    <symbol id="i-penize" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M3 7h18v10H3V7Zm9 7.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5ZM6 10v.01M18 14v.01"/></symbol>
+    <symbol id="i-spendlik" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M12 21s7-6.2 7-11.5a7 7 0 1 0-14 0C5 14.8 12 21 12 21Zm0-9a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/></symbol>
+    <symbol id="i-tisk" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M12 3v3m0 12v3m9-9h-3M6 12H3m9 4a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"/></symbol>
+    <symbol id="i-oko" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Zm10 3a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/></symbol>
+    <symbol id="i-uloz" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M6 3h12v18l-6-4-6 4V3Z"/></symbol>
+    <symbol id="i-sipka" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-6-6 6 6-6 6"/></symbol>
+  </svg>
+  <!-- /casti:ikony -->
+  <!-- casti:lista -->
+  <div class="lista">
+    <div class="obal">
+      <p data-sezona>Dodáváme do 3 až 5 týdnů od objednávky.</p>
+      <div class="lista__kontakt"><a href="tel:+420581622009">581 622 009</a><a href="mailto:info@tiskarnamariva.cz">info@tiskarnamariva.cz</a></div>
+    </div>
+  </div>
+  <!-- /casti:lista -->
+  <!-- casti:hlavicka -->
+  <header class="hlavicka">
+    <div class="obal hlavicka__obal">
+      <a class="logo" href="index.html" aria-label="Tiskárna MARIVA, úvodní stránka"><img src="assets/img/znacka/logo.svg" alt="MARIVA" width="160" height="40"><span>Tiskárna ve Všechovicích<br>od roku 2004</span></a>
+      <nav class="menu" id="menu" aria-label="Hlavní">
+        <a href="konfigurator.html">Trička</a>
+        <a href="produkt.html?id=mikina">Mikiny</a>
+        <a href="produkty.html?pro=maturanti">Maturanti</a>
+        <a href="produkty.html?pro=skolky">Školky</a>
+        <a href="produkty.html?pro=firmy">Firmy</a>
+        <a href="produkty.html">Všechny produkty</a>
+      </nav>
+      <div class="hlavicka__akce">
+        <a class="tl tl--magenta tl--male hlavicka__cta" href="konfigurator.html">Navrhnout tričko</a>
+        <button type="button" class="kosik-tlacitko" data-otevrit-kosik aria-label="Otevřít košík"><svg aria-hidden="true"><use href="#i-kosik"/></svg><span class="kosik-text">Košík</span><span class="pocet" data-pocet hidden>0</span></button>
+        <button type="button" class="menu-tlacitko" aria-expanded="false" aria-controls="menu">Menu</button>
+      </div>
+    </div>
+  </header>
+  <!-- /casti:hlavicka -->
+
+  <main class="obal">
+    <div class="stranka-hlava">
+      <ol class="drobky" aria-label="Kde jste"><li><a href="index.html">Úvod</a></li><li><a href="produkty.html">Produkty</a></li><li data-drobek></li></ol>
+    </div>
+    <div class="detail" data-detail>
+      <div class="detail__obraz" data-obraz></div>
+      <div>
+        <span data-stitek></span>
+        <h1 data-nazev></h1>
+        <p class="detail__perex" data-perex></p>
+        <div class="detail__cena" data-cena></div>
+        <ul class="cipy" data-hodi-se aria-label="Hodí se pro"></ul>
+        <div class="box">
+          <h2>Nezávazná poptávka</h2>
+          <p>Napište nám, co potřebujete. Pošleme vám cenu a návrh, nic tím neobjednáváte.</p>
+          <form class="formular" data-poptavka novalidate>
+            <input type="hidden" name="produkt">
+            <div class="formular__dva">
+              <label class="pole"><span class="pole__popis">Počet kusů</span><input name="mnozstvi" type="number" min="1" inputmode="numeric" required></label>
+              <label class="pole"><span class="pole__popis">Kdy potřebujete mít hotovo <em>nepovinné</em></span><input name="termin" type="date"></label>
+            </div>
+            <label class="pole"><span class="pole__popis">Co má být na potisku</span><textarea name="popis" rows="3" required></textarea></label>
+            <label class="pole"><span class="pole__popis">Motiv, logo nebo seznam jmen <em>nepovinné</em></span><input type="file" name="motiv" multiple accept="image/*,.pdf,.doc,.docx,.xls,.xlsx,.txt"></label>
+            <div class="formular__dva">
+              <label class="pole"><span class="pole__popis">Jméno a příjmení</span><input name="jmeno" type="text" autocomplete="name" required></label>
+              <label class="pole"><span class="pole__popis">Škola, spolek nebo firma <em>nepovinné</em></span><input name="organizace" type="text" autocomplete="organization"></label>
+            </div>
+            <div class="formular__dva">
+              <label class="pole"><span class="pole__popis">E-mail</span><input name="email" type="email" autocomplete="email" required></label>
+              <label class="pole"><span class="pole__popis">Telefon <em>nepovinné</em></span><input name="telefon" type="tel" autocomplete="tel"></label>
+            </div>
+            <label class="souhlas"><input type="checkbox" name="souhlas" required><span>Souhlasím se zpracováním kontaktních údajů pro vyřízení poptávky.</span></label>
+            <input type="text" name="bot-pole" class="skryte" tabindex="-1" autocomplete="off" aria-hidden="true">
+            <p class="chyba" hidden></p>
+            <button type="submit" class="tl tl--magenta tl--velke">Odeslat nezávaznou poptávku</button>
+          </form>
+          <ul class="vyhody">
+            <li><svg aria-hidden="true"><use href="#i-kalendar"/></svg><span>Hotovo do 3 až 5 týdnů, při objednávce dnes <strong data-termin>do 3 až 5 týdnů</strong></span></li>
+            <li><svg aria-hidden="true"><use href="#i-tisk"/></svg><span>Tiskneme sami ve Všechovicích od roku 2004</span></li>
+            <li><svg aria-hidden="true"><use href="#i-penize"/></svg><span>Platba převodem, dobírkou nebo hotově</span></li>
+          </ul>
+        </div>
+        <div class="box">
+          <h2>O produktu</h2>
+          <p data-popis style="margin:0"></p>
+        </div>
+      </div>
+    </div>
+
+    <section class="sekce">
+      <div class="sekce__hlava"><div><h2>Mohlo by se hodit</h2></div><a class="odkaz sipka" href="produkty.html">Všechny produkty</a></div>
+      <ul class="produkty" data-podobne></ul>
+    </section>
+  </main>
+
+  <!-- casti:paticka -->
+  <footer class="paticka">
+    <div class="obal">
+      <div class="paticka__mrizka">
+        <div class="paticka__znacka">
+          <img src="assets/img/znacka/logo.svg" alt="MARIVA" width="176" height="44">
+          <p>Tiskárna ve Všechovicích. Potiskneme trička, mikiny, šerpy, stužky, hrnky a další věci pro školy, spolky, firmy i jednotlivce.</p>
+        </div>
+        <div>
+          <h3>Produkty</h3>
+          <ul>
+            <li><a href="konfigurator.html">Trička s potiskem</a></li>
+            <li><a href="produkt.html?id=mikina">Mikiny</a></li>
+            <li><a href="produkt.html?id=serpa">Šerpy</a></li>
+            <li><a href="produkt.html?id=stuzky">Atlasové stužky</a></li>
+            <li><a href="produkty.html">Všechny produkty</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Pro koho</h3>
+          <ul>
+            <li><a href="produkty.html?pro=maturanti">Maturanti a absolventi</a></li>
+            <li><a href="produkty.html?pro=skolky">Mateřské školy</a></li>
+            <li><a href="produkty.html?pro=sport">Sport a spolky</a></li>
+            <li><a href="produkty.html?pro=firmy">Firmy</a></li>
+            <li><a href="produkty.html?pro=darky">Dárky</a></li>
+          </ul>
+        </div>
+        <div class="paticka__kontakt">
+          <h3>Kontakt</h3>
+          <ul>
+            <li><a href="tel:+420581622009">581 622 009</a></li>
+            <li><a href="tel:+420776336533">776 336 533</a></li>
+            <li><a href="mailto:info@tiskarnamariva.cz">info@tiskarnamariva.cz</a></li>
+            <li>Všechovice 212, 753 53 Všechovice</li>
+            <li><button type="button" class="odkaz" data-poptat style="color:#fff">Napsat poptávku</button></li>
+          </ul>
+        </div>
+      </div>
+      <div class="paticka__spodek">
+        <span>© 2026 Tiskárna MARIVA · Provozovatel: Marta Buksová, IČO 48904163, Libosváry 49, 768 61 Loukov</span>
+        <span>Platba převodem, dobírkou nebo hotově · Osobní odběr ve Všechovicích</span>
+      </div>
+    </div>
+  </footer>
+  <!-- /casti:paticka -->
+
+  <script src="produkty/katalog.js?v=65303167" defer></script>
+  <script src="produkty/sortiment.js?v=95383590" defer></script>
+  <script src="assets/js/potisk.js?v=4d29a81f" defer></script>
+  <script src="assets/js/zaklad.js?v=1864708a" defer></script>
+  <script src="assets/js/produkt.js?v=bbb9d895" defer></script>
+</body>
+</html>
