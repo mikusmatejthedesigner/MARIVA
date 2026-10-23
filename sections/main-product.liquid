@@ -1,27 +1,43 @@
 {%- comment -%}
-  Detail produktu. Štítek (tag) „poptavka“ = místo košíku poptávkový formulář. Ostatní produkty: varianty, počet, košík, rychlá platba.
+  Detail produktu. Štítky (tags):
+  - konfigurator: živý náhled trička (barva a nápis), pole pro nápis a obrázek, varianty střih/barva/velikost
+  - poptavka: místo košíku poptávkový formulář
+  - ilustrace:<id>, barva-<…>, stitek:Text, profil-<id>: viz product-card
 {%- endcomment -%}
 {%- liquid
   assign poptavka = false
+  assign konfigurator = false
   assign dlazdice = 'papir'
   assign stitek = ''
   assign ilustrace = ''
+  assign profil = 'tricko'
+  assign napis_vzor = 'TŘÍDA 4.B'
   for tag in product.tags
     assign tag_male = tag | downcase
-    if tag_male == 'poptavka'
-      assign poptavka = true
-    endif
-    if tag_male == 'barva-magenta' or tag_male == 'barva-zluta' or tag_male == 'barva-azur'
-      assign dlazdice = tag_male | remove_first: 'barva-'
-    endif
+    case tag_male
+      when 'poptavka'
+        assign poptavka = true
+      when 'konfigurator'
+        assign konfigurator = true
+      when 'barva-magenta', 'barva-zluta', 'barva-azur', 'barva-papir'
+        assign dlazdice = tag_male | remove_first: 'barva-'
+    endcase
     if tag_male contains 'ilustrace:'
       assign ilustrace = tag_male | split: ':' | last
     endif
     if tag_male contains 'stitek:'
       assign stitek = tag | split: ':' | last
     endif
+    if tag_male contains 'profil-'
+      assign profil = tag_male | remove_first: 'profil-'
+    endif
+    if tag_male contains 'napis:'
+      assign napis_vzor = tag | split: ':' | last
+    endif
   endfor
   assign varianta = product.selected_or_first_available_variant
+  assign moznost_strih = settings.moznost_strih | downcase
+  assign moznost_barva = settings.moznost_barva | downcase
 -%}
 <div class="obal">
   <div class="stranka-hlava">
@@ -32,8 +48,8 @@
     </ol>
   </div>
   <div class="detail" data-produkt>
-    {%- render 'product-gallery', product: product, dlazdice: dlazdice, ilustrace: ilustrace -%}
-    <div>
+    {%- render 'product-gallery', product: product, dlazdice: dlazdice, ilustrace: ilustrace, konfigurator: konfigurator, profil: profil, napis_vzor: napis_vzor -%}
+    <div class="detail__info">
       {%- if stitek != blank -%}<span class="stitek stitek--zluta">{{ stitek | escape }}</span>{%- endif -%}
       <h1>{{ product.title | escape }}</h1>
       {%- if product.metafields.custom.perex != blank -%}<p class="detail__perex">{{ product.metafields.custom.perex.value | escape }}</p>{%- endif -%}
@@ -48,24 +64,70 @@
           <h2>{{ 'inquiry.title' | t }}</h2>
           <p>{{ 'inquiry.intro' | t }}</p>
           {%- render 'poptavka-form', produkt_nazev: product.title, id: 'poptavka-produkt' -%}
-          {%- render 'vyhody' -%}
         </div>
+        <ol class="dalsi-kroky" aria-label="{{ 'inquiry.next_title' | t }}">
+          <li><strong>{{ 'inquiry.next_1_title' | t }}</strong><span>{{ 'inquiry.next_1' | t }}</span></li>
+          <li><strong>{{ 'inquiry.next_2_title' | t }}</strong><span>{{ 'inquiry.next_2' | t }}</span></li>
+          <li><strong>{{ 'inquiry.next_3_title' | t }}</strong><span>{{ 'inquiry.next_3' | t: delivery: settings.dodani_text }}</span></li>
+        </ol>
+        {%- render 'vyhody' -%}
       {%- else -%}
-        <div class="box">
+        <div class="box koupit-box">
           {%- form 'product', product, class: 'formular', data-produkt-form: '', novalidate: 'novalidate' -%}
             <input type="hidden" name="id" value="{{ varianta.id }}" data-varianta>
             {%- unless product.has_only_default_variant -%}
               {%- for option in product.options_with_values -%}
-                <fieldset class="volba">
+                {%- assign nazev_moznosti = option.name | downcase -%}
+                {%- assign index = forloop.index0 -%}
+                <fieldset class="volba" data-skupina="{{ index }}" data-nazev="{{ nazev_moznosti | escape }}">
                   <legend class="volba__nadpis">{{ option.name | escape }} <span data-moznost-hodnota>{{ option.selected_value | escape }}</span></legend>
-                  <div class="velikosti">
-                    {%- for value in option.values -%}
-                      <label class="velikost"><input type="radio" name="moznost-{{ forloop.parentloop.index0 }}" value="{{ value | escape }}"{% if option.selected_value == value %} checked{% endif %} data-moznost="{{ forloop.parentloop.index0 }}"><span>{{ value | escape }}</span></label>
-                    {%- endfor -%}
-                  </div>
+                  {%- if nazev_moznosti == moznost_barva -%}
+                    <div class="barvy" role="radiogroup">
+                      {%- for value in option.values -%}
+                        <label class="barva" title="{{ value | escape }}"><input type="radio" name="moznost-{{ index }}" value="{{ value | escape }}"{% if option.selected_value == value %} checked{% endif %} data-moznost="{{ index }}"><span data-barva-nazev="{{ value | escape }}"></span><span class="skryte">{{ value | escape }}</span></label>
+                      {%- endfor -%}
+                    </div>
+                  {%- elsif nazev_moznosti == moznost_strih -%}
+                    <div class="segmenty" role="radiogroup">
+                      {%- for value in option.values -%}
+                        {%- assign cena_strihu = '' -%}
+                        {%- for v in product.variants -%}
+                          {%- if v.options[index] == value and cena_strihu == '' -%}{%- assign cena_strihu = v.price | money_without_trailing_zeros -%}{%- endif -%}
+                        {%- endfor -%}
+                        <label class="segment"><input type="radio" name="moznost-{{ index }}" value="{{ value | escape }}"{% if option.selected_value == value %} checked{% endif %} data-moznost="{{ index }}"><span><strong>{{ value | escape }}</strong><em>{{ cena_strihu }}</em></span></label>
+                      {%- endfor -%}
+                    </div>
+                  {%- else -%}
+                    <div class="velikosti" role="radiogroup">
+                      {%- for value in option.values -%}
+                        <label class="velikost"><input type="radio" name="moznost-{{ index }}" value="{{ value | escape }}"{% if option.selected_value == value %} checked{% endif %} data-moznost="{{ index }}"><span>{{ value | escape }}</span></label>
+                      {%- endfor -%}
+                    </div>
+                  {%- endif -%}
                 </fieldset>
               {%- endfor -%}
             {%- endunless -%}
+
+            {%- if konfigurator -%}
+              <fieldset class="volba potisk-volba">
+                <legend class="volba__nadpis">{{ 'configurator.print' | t }}</legend>
+                <label class="pole"><span class="pole__popis">{{ 'configurator.text_label' | t }}</span>
+                  <textarea name="properties[Nápis]" rows="2" maxlength="120" placeholder="{{ napis_vzor | escape }}" data-napis></textarea>
+                </label>
+                {%- if settings.uploadcare_klic != blank -%}
+                  <label class="pole"><span class="pole__popis">{{ 'configurator.image_label' | t }} <em>{{ 'inquiry.optional' | t }}</em></span>
+                    <input type="file" accept="image/*,.pdf" data-obrazek>
+                  </label>
+                  <p class="tlumene mala">{{ 'configurator.upload_hint' | t }}</p>
+                {%- else -%}
+                  <p class="tlumene mala">{{ 'configurator.image_email' | t: email: settings.email }}</p>
+                {%- endif -%}
+                <label class="pole"><span class="pole__popis">{{ 'configurator.note_label' | t }} <em>{{ 'inquiry.optional' | t }}</em></span>
+                  <textarea name="properties[Poznámka k potisku]" rows="2" maxlength="300" placeholder="{{ 'configurator.note_placeholder' | t }}"></textarea>
+                </label>
+              </fieldset>
+            {%- endif -%}
+
             <div class="volba">
               <span class="volba__nadpis">{{ 'products.quantity' | t }}</span>
               <div class="pocitadlo">
@@ -75,12 +137,19 @@
               </div>
             </div>
             <p class="chyba" data-chyba role="alert" hidden></p>
+            <div class="koupit__radek">
+              <div class="koupit__cena"><span>{{ 'cart.subtotal' | t }}</span><strong data-celkem>{{ varianta.price | money_without_trailing_zeros }}</strong></div>
+            </div>
             <button type="submit" name="add" class="tl tl--magenta tl--velke" data-pridat{% unless varianta.available %} disabled{% endunless %}>
               {%- if varianta.available %}{{ 'products.add_to_cart' | t }}{% else %}{{ 'price.sold_out' | t }}{% endif -%}
             </button>
             {%- if section.settings.rychla_platba -%}{{ form | payment_button }}{%- endif -%}
           {%- endform -%}
+          {%- if konfigurator -%}
+            <p class="hromadne">{{ 'configurator.more_hint' | t }} <a class="odkaz" href="{{ section.settings.poptavka_odkaz | default: routes.root_url }}">{{ 'configurator.inquire_more' | t }}</a></p>
+          {%- endif -%}
           {%- render 'vyhody' -%}
+          {%- render 'platby' -%}
         </div>
       {%- endif -%}
 
@@ -97,8 +166,25 @@
     </div>
   </div>
 </div>
+
+{%- unless poptavka -%}
+  <div class="mobilni-lista" data-sticky hidden>
+    <div><strong data-celkem-lista>{{ varianta.price | money_without_trailing_zeros }}</strong><span>{{ 'price.with_print' | t }}</span></div>
+    <button type="button" class="tl tl--magenta" data-pridat-lista>{{ 'products.add_to_cart' | t }}</button>
+  </div>
+{%- else -%}
+  <div class="mobilni-lista" data-sticky hidden>
+    <div><strong>{{ 'price.on_request' | t }}</strong><span>{{ 'price.on_request_short' | t }}</span></div>
+    <a class="tl tl--magenta" href="#poptavka">{{ 'products.inquire' | t }}</a>
+  </div>
+{%- endunless -%}
+
 <script type="application/json" data-varianty>{{ product.variants | json }}</script>
 <script type="application/ld+json">{{ product | structured_data }}</script>
+{%- if konfigurator -%}
+  {% render 'konfigurator-profily' %}
+  <script src="{{ 'potisk.js' | asset_url }}" defer></script>
+{%- endif -%}
 <script src="{{ 'produkt.js' | asset_url }}" defer></script>
 
 {% schema %}
@@ -106,7 +192,8 @@
   "name": "Detail produktu",
   "tag": "section",
   "settings": [
-    {"type": "checkbox", "id": "rychla_platba", "label": "Tlačítka rychlé platby (Apple Pay, Google Pay…)", "default": true}
+    {"type": "checkbox", "id": "rychla_platba", "label": "Tlačítka rychlé platby (Apple Pay, Google Pay…)", "default": true},
+    {"type": "url", "id": "poptavka_odkaz", "label": "Odkaz „Poptat větší množství“", "info": "Stránka Poptávka."}
   ],
   "blocks": [{"type": "@app"}]
 }

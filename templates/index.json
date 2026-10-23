@@ -2,7 +2,9 @@
   "sections": {
     "hero_navrh": {
       "type": "hero-navrh",
-      "settings": {},
+      "settings": {
+        "produkt": "tricko-s-vlastnim-potiskem"
+      },
       "blocks": {
         "tip_1": {
           "type": "tip",
@@ -86,7 +88,9 @@
     },
     "featured_collection": {
       "type": "featured-collection",
-      "settings": {}
+      "settings": {
+        "pocet": 8
+      }
     },
     "segments": {
       "type": "segments",
@@ -99,7 +103,8 @@
             "text": "Šerpy, stužky, trička a mikiny pro celou třídu.",
             "barva": "magenta",
             "ilustrace_1": "serpa",
-            "ilustrace_2": "stuzky"
+            "ilustrace_2": "stuzky",
+            "odkaz": "shopify://collections/maturanti"
           }
         },
         "skupina_2": {
@@ -109,7 +114,8 @@
             "text": "Dětská trička, šerpy, vesty a vaky s názvem třídy.",
             "barva": "zluta",
             "ilustrace_1": "vesta",
-            "ilustrace_2": "placka"
+            "ilustrace_2": "placka",
+            "odkaz": "shopify://collections/skolky"
           }
         },
         "skupina_3": {
@@ -119,7 +125,8 @@
             "text": "Trička, mikiny a vaky pro tým, oddíl nebo hasiče.",
             "barva": "azur",
             "ilustrace_1": "vak",
-            "ilustrace_2": "ksiltovka"
+            "ilustrace_2": "ksiltovka",
+            "odkaz": "shopify://collections/sport"
           }
         },
         "skupina_4": {
@@ -129,7 +136,8 @@
             "text": "Trička s logem, pracovní oděvy, hrnky a propisky.",
             "barva": "inkoust",
             "ilustrace_1": "zastera",
-            "ilustrace_2": "propiska"
+            "ilustrace_2": "propiska",
+            "odkaz": "shopify://collections/firmy"
           }
         },
         "skupina_5": {
@@ -139,7 +147,8 @@
             "text": "Tričko s fotkou, hrnek, polštářek nebo puzzle.",
             "barva": "papir",
             "ilustrace_1": "hrnek",
-            "ilustrace_2": "polstarek"
+            "ilustrace_2": "polstarek",
+            "odkaz": "shopify://collections/darky"
           }
         }
       },

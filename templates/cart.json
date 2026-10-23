@@ -2,7 +2,9 @@
   "sections": {
     "main": {
       "type": "main-cart",
-      "settings": {}
+      "settings": {
+        "prazdny_odkaz": "shopify://products/tricko-s-vlastnim-potiskem"
+      }
     }
   },
   "order": [

@@ -1,0 +1,8 @@
+{%- comment -%} Ikony platebních metod, které má obchod zapnuté (Nastavení > Platby). {%- endcomment -%}
+{%- if shop.enabled_payment_types.size > 0 -%}
+  <ul class="platby" aria-label="{{ 'general.payments' | t }}">
+    {%- for type in shop.enabled_payment_types -%}
+      <li>{{ type | payment_type_svg_tag: class: 'platba-ikona' }}</li>
+    {%- endfor -%}
+  </ul>
+{%- endif -%}

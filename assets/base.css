@@ -641,3 +641,41 @@ dialog::backdrop { background: rgba(27, 20, 36, .45); }
 .detail .box + .box, .detail .box + div, .detail div + .box { margin-top: 14px; }
 .detail .shopify-payment-button { margin-top: 10px; }
 .detail .formular .volba { margin: 0 0 16px; border: 0; padding: 0; }
+
+/* Detail produktu: náhled trička, potisk, kroky po poptávce, platby, lepicí lišta */
+fieldset { min-width: 0; margin: 0; padding: 0; border: 0; }
+.galerie__hlavni { position: relative; }
+.galerie__hlavni canvas { width: 100%; height: 100%; }
+.galerie__hlavni canvas[hidden], .galerie__hlavni img[hidden], .galerie__popis[hidden] { display: none; }
+.galerie__popis { position: absolute; left: 50%; bottom: 12px; transform: translateX(-50%); max-width: calc(100% - 24px); margin: 0; padding: 6px 12px; border-radius: 999px; background: rgba(27, 20, 36, .78); color: #fff; font-size: 12.5px; font-weight: 600; white-space: nowrap; pointer-events: none; }
+.galerie__nahledy button span { display: grid; place-items: center; height: 100%; font-size: 11px; font-weight: 800; }
+.potisk-volba { display: grid; gap: 14px; padding: 16px; border: 2px dashed var(--cara-2); border-radius: var(--r); background: var(--papir); }
+.potisk-volba .volba__nadpis { margin: 0; padding: 0 6px; }
+.koupit-box .volba:first-child { border-top: 0; padding-top: 0; }
+.koupit-box .koupit__radek { margin-top: 2px; }
+.koupit-box .tl--velke { width: 100%; justify-content: center; }
+.dalsi-kroky { counter-reset: krok; display: grid; gap: 14px; margin: 18px 0 4px; padding: 0; list-style: none; }
+.dalsi-kroky li { counter-increment: krok; display: grid; grid-template-columns: 38px minmax(0, 1fr); column-gap: 14px; align-items: center; }
+.dalsi-kroky li::before { content: counter(krok); grid-row: span 2; display: grid; place-items: center; width: 38px; height: 38px; border-radius: 50%; background: var(--zluta); color: var(--inkoust); font-weight: 900; font-stretch: 110%; }
+.dalsi-kroky strong { font-weight: 800; }
+.dalsi-kroky span { color: var(--text-2); font-size: 15px; }
+.platby { display: flex; flex-wrap: wrap; gap: 6px; margin: 14px 0 0; padding: 0; list-style: none; }
+.platba-ikona { display: block; width: auto; height: 24px; }
+.mobilni-lista[hidden] { display: none !important; }
+
+/* Rozbalovací menu (položky menu s podpoložkami) */
+.menu__skupina { position: relative; display: flex; }
+.menu__nadrazena::after { content: ''; display: inline-block; width: 6px; height: 6px; margin: 0 0 3px 8px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(45deg); }
+.menu__podmenu { display: none; position: absolute; z-index: 40; top: 100%; left: -8px; min-width: 270px; padding: 8px; border-radius: var(--r); background: var(--bila); box-shadow: 0 18px 40px -14px rgba(27, 20, 36, .35), 0 0 0 1px var(--cara); }
+.menu__podmenu a { display: block; padding: 11px 14px; border-radius: var(--r-s); font-size: 15.5px; }
+.menu__skupina:hover .menu__podmenu, .menu__skupina:focus-within .menu__podmenu { display: block; }
+@media (max-width: 860px) {
+  .menu__skupina { flex-direction: column; }
+  .menu__nadrazena::after { display: none; }
+  .menu__podmenu { display: block; position: static; min-width: 0; padding: 0 0 0 16px; background: none; box-shadow: none; }
+  .menu__podmenu a { padding: 11px 4px; font-size: 16px; border-radius: 0; color: var(--text-2); }
+}
+@media (max-width: 1020px) {
+  .sablona-product .paticka { padding-bottom: 96px; }
+}
+.paticka__platby .platby { margin: 28px 0 0; }

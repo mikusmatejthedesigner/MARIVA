@@ -15,7 +15,8 @@
       "label": "Stránkování",
       "previous": "Předchozí",
       "next": "Další"
-    }
+    },
+    "payments": "Způsoby platby"
   },
   "price": {
     "from": "od {{ price }}",
@@ -91,7 +92,14 @@
     "consent": "Souhlasím se zpracováním kontaktních údajů pro vyřízení poptávky.",
     "submit": "Odeslat nezávaznou poptávku",
     "success_title": "Děkujeme, poptávka je u nás",
-    "success": "Ozveme se vám s cenou a návrhem na e-mail nebo telefon, který jste uvedli."
+    "success": "Ozveme se vám s cenou a návrhem na e-mail nebo telefon, který jste uvedli.",
+    "next_title": "Jak to bude pokračovat",
+    "next_1_title": "Pošlete poptávku",
+    "next_1": "Napište, co potřebujete a kolik kusů.",
+    "next_2_title": "Ozveme se vám",
+    "next_2": "Pošleme cenu a návrh. Nic tím neobjednáváte.",
+    "next_3_title": "Vytiskneme u nás",
+    "next_3": "Po vašem potvrzení tiskneme ve Všechovicích. {{ delivery }}."
   },
   "configurator": {
     "badge": "Navrhnete online",
@@ -111,7 +119,16 @@
     "choose_size": "Vyberte prosím velikost.",
     "total": "Celkem s DPH",
     "colors_note": "Barvy na obrazovce se mohou od skutečnosti mírně lišit.",
-    "canvas_label": "Náhled produktu s potiskem. Potisk posunete tažením, velikost změníte tažením za roh, šipkami posunete vybraný potisk."
+    "canvas_label": "Náhled produktu s potiskem. Potisk posunete tažením, velikost změníte tažením za roh, šipkami posunete vybraný potisk.",
+    "text_label": "Nápis na tričku",
+    "image_label": "Obrázek nebo logo",
+    "image_email": "Obrázek nebo logo nám pošlete po objednávce e-mailem na {{ email }} a uveďte číslo objednávky.",
+    "note_label": "Poznámka k potisku",
+    "note_placeholder": "Kam má potisk přijít, jména na záda, barva písma…",
+    "preview": "Náhled",
+    "preview_note": "Náhled nápisu je ilustrační.",
+    "need_print": "Napište nápis, přiložte obrázek, nebo nám dejte vědět v poznámce, co má být na tričku.",
+    "upload_failed": "Obrázek se nepodařilo nahrát. Zkuste to znovu, nebo ho pošlete e-mailem."
   },
   "search": {
     "title": "Hledání",

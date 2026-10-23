@@ -1,18 +1,28 @@
-{%- comment -%} Galerie produktu (média ze Shopify). Parametry: product, dlazdice, ilustrace (náhradní obrázek z motivu, když produkt nemá fotku) {%- endcomment -%}
+{%- comment -%}
+  Galerie produktu (média ze Shopify). U produktů s konfigurátorem je první obrázek živý náhled trička.
+  Parametry: product, dlazdice, ilustrace (náhradní obrázek z motivu), konfigurator, profil, napis_vzor
+{%- endcomment -%}
 {%- assign prvni = product.selected_or_first_available_variant.featured_media | default: product.featured_media -%}
 <div class="galerie" data-galerie>
-  <div class="galerie__hlavni dlazdice--{{ dlazdice }}{% if prvni == blank and ilustrace != blank %} galerie__hlavni--ilustrace{% endif %}">
-    {%- if prvni == blank and ilustrace != blank -%}
+  <div class="galerie__hlavni dlazdice--{{ dlazdice }}{% if prvni == blank and ilustrace != blank and konfigurator != true %} galerie__hlavni--ilustrace{% endif %}">
+    {%- if konfigurator -%}
+      <canvas data-nahled-tricka data-profil="{{ profil }}" data-vzor="{{ napis_vzor | escape }}" role="img" aria-label="{{ product.title | escape }}"></canvas>
+      <p class="galerie__popis">{{ 'configurator.preview_note' | t }}</p>
+    {%- endif -%}
+    {%- if prvni == blank and ilustrace != blank and konfigurator != true -%}
       <img src="{{ 'ilustrace-' | append: ilustrace | append: '.svg' | asset_url }}" alt="" width="600" height="600">
     {%- endif -%}
     {%- if prvni -%}
-      {{ prvni.preview_image | image_url: width: 1200 | image_tag: widths: '600, 900, 1200', sizes: '(min-width: 1020px) 55vw, 100vw', alt: prvni.alt | default: product.title, data-galerie-hlavni: '', fetchpriority: 'high' }}
+      {{ prvni.preview_image | image_url: width: 1200 | image_tag: widths: '600, 900, 1200', sizes: '(min-width: 1020px) 55vw, 100vw', alt: prvni.alt | default: product.title, data-galerie-hlavni: '', fetchpriority: 'high', hidden: konfigurator }}
     {%- endif -%}
   </div>
-  {%- if product.media.size > 1 -%}
+  {%- if product.media.size > 1 or konfigurator and product.media.size > 0 -%}
     <div class="galerie__nahledy" aria-label="{{ 'products.gallery' | t }}">
+      {%- if konfigurator -%}
+        <button type="button" data-media="nahled" aria-current="true" aria-label="{{ 'configurator.preview' | t }}"><span>{{ 'configurator.preview' | t }}</span></button>
+      {%- endif -%}
       {%- for media in product.media -%}
-        <button type="button" data-media="{{ media.id }}" data-velky="{{ media.preview_image | image_url: width: 1200 }}" aria-current="{% if media.id == prvni.id %}true{% else %}false{% endif %}" aria-label="{{ media.alt | default: product.title | escape }}">
+        <button type="button" data-media="{{ media.id }}" data-velky="{{ media.preview_image | image_url: width: 1200 }}" aria-current="{% if konfigurator != true and media.id == prvni.id %}true{% else %}false{% endif %}" aria-label="{{ media.alt | default: product.title | escape }}">
           {{ media.preview_image | image_url: width: 160 | image_tag: alt: '', loading: 'lazy' }}
         </button>
       {%- endfor -%}

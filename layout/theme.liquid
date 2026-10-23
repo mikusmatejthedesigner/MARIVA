@@ -39,11 +39,27 @@
         telefon: {{ settings.telefon | json }},
         barvy: {{ settings.barvy_hex | json }},
         moznosti: {strih: {{ settings.moznost_strih | json }}, barva: {{ settings.moznost_barva | json }}, velikost: {{ settings.moznost_velikost | json }}},
+        texty: {potiskChybi: {{ 'configurator.need_print' | t | json }}},
         uploadcare: {klic: {{ settings.uploadcare_klic | json }}, cdn: {{ settings.uploadcare_cdn | json }}}
       };
     </script>
     <script src="{{ 'mariva.js' | asset_url }}" defer></script>
     {{ content_for_header }}
+    {%- if template.name == 'index' and settings.adresa contains ', ' -%}
+      {%- assign adr = settings.adresa | split: ', ' -%}
+      {%- assign psc_mesto = adr[1] | split: ' ' -%}
+      <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "LocalBusiness",
+          "name": {{ shop.name | json }},
+          "url": {{ shop.url | json }},
+          "telephone": {{ settings.telefon | json }},
+          "email": {{ settings.email | json }},
+          "address": {"@type": "PostalAddress", "streetAddress": {{ adr[0] | json }}, "postalCode": {{ psc_mesto[0] | append: ' ' | append: psc_mesto[1] | json }}, "addressLocality": {{ psc_mesto | last | json }}, "addressCountry": "CZ"}
+        }
+      </script>
+    {%- endif -%}
   </head>
 
   <body class="sablona-{{ template.name }}{% if template.name == 'product' and product.tags contains 'konfigurator' %} stranka-konfigurator{% endif %}">

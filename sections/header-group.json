@@ -5,17 +5,52 @@
     "lista": {
       "type": "announcement-bar",
       "blocks": {
-        "podzim": {"type": "sezona", "settings": {"mesice": "9,10,11,12,1", "text": "Blíží se stužkovací plesy. Šerpy a stužky pro třídu objednejte s předstihem."}},
-        "jaro": {"type": "sezona", "settings": {"mesice": "2,3,4,5,6", "text": "Poslední zvonění, maturity a rozloučení se školkou. Trička pro třídu objednejte včas."}},
-        "leto": {"type": "sezona", "settings": {"mesice": "7,8", "text": "Tábory, turnaje a firemní akce. Trička pro celou partu do 3 až 5 týdnů."}}
+        "podzim": {
+          "type": "sezona",
+          "settings": {
+            "mesice": "9,10,11,12,1",
+            "text": "Blíží se stužkovací plesy. Šerpy a stužky pro třídu objednejte s předstihem."
+          }
+        },
+        "jaro": {
+          "type": "sezona",
+          "settings": {
+            "mesice": "2,3,4,5,6",
+            "text": "Poslední zvonění, maturity a rozloučení se školkou. Trička pro třídu objednejte včas."
+          }
+        },
+        "leto": {
+          "type": "sezona",
+          "settings": {
+            "mesice": "7,8",
+            "text": "Tábory, turnaje a firemní akce. Trička pro celou partu do 3 až 5 týdnů."
+          }
+        }
       },
-      "block_order": ["podzim", "jaro", "leto"],
-      "settings": {"text": "Dodáváme do 3 až 5 týdnů od objednávky.", "kontakt": true}
+      "block_order": [
+        "podzim",
+        "jaro",
+        "leto"
+      ],
+      "settings": {
+        "text": "Dodáváme do 3 až 5 týdnů od objednávky.",
+        "kontakt": true
+      }
     },
     "hlavicka": {
       "type": "header",
-      "settings": {"podtitul": "Tiskárna ve Všechovicích\nod roku 2004", "menu": "main-menu", "cta_text": "Navrhnout tričko", "hledani": false, "ucet": false}
+      "settings": {
+        "podtitul": "Tiskárna ve Všechovicích\nod roku 2004",
+        "menu": "main-menu",
+        "cta_text": "Navrhnout tričko",
+        "hledani": false,
+        "ucet": false,
+        "cta_odkaz": "shopify://products/tricko-s-vlastnim-potiskem"
+      }
     }
   },
-  "order": ["lista", "hlavicka"]
+  "order": [
+    "lista",
+    "hlavicka"
+  ]
 }

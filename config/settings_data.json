@@ -1,6 +1,12 @@
 {
-  "current": "Default",
-  "presets": {
-    "Default": {}
+  "current": {
+    "sections": {
+      "cart-drawer": {
+        "type": "cart-drawer",
+        "settings": {
+          "prazdny_odkaz": "shopify://products/tricko-s-vlastnim-potiskem"
+        }
+      }
+    }
   }
 }

@@ -11,7 +11,16 @@
     </a>
     <nav class="menu" id="menu" aria-label="{{ 'general.menu' | t }}">
       {%- for link in section.settings.menu.links -%}
-        <a href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title | escape }}</a>
+        {%- if link.links.size > 0 -%}
+          <div class="menu__skupina">
+            <a class="menu__nadrazena" href="{{ link.url }}"{% if link.child_current or link.current %} aria-current="page"{% endif %}>{{ link.title | escape }}</a>
+            <div class="menu__podmenu">
+              {%- for child in link.links -%}<a href="{{ child.url }}"{% if child.current %} aria-current="page"{% endif %}>{{ child.title | escape }}</a>{%- endfor -%}
+            </div>
+          </div>
+        {%- else -%}
+          <a href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title | escape }}</a>
+        {%- endif -%}
       {%- endfor -%}
     </nav>
     <div class="hlavicka__akce">

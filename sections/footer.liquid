@@ -35,6 +35,7 @@
         {%- endcase -%}
       {%- endfor -%}
     </div>
+    <div class="paticka__platby">{%- render 'platby' -%}</div>
     <div class="paticka__spodek">
       <span>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}{% if settings.provozovatel != blank %} · {{ settings.provozovatel }}{% endif %}</span>
       <span>{{ section.settings.spodni_text }}</span>
