@@ -1,12 +1,12 @@
 {%- comment -%}
   Galerie produktu (média ze Shopify). U produktů s konfigurátorem je první obrázek živý náhled trička.
-  Parametry: product, dlazdice, ilustrace (náhradní obrázek z motivu), konfigurator, profil, napis_vzor
+  Parametry: product, dlazdice, ilustrace (náhradní obrázek z motivu), konfigurator, profil, napis_vzor, latka
 {%- endcomment -%}
 {%- assign prvni = product.selected_or_first_available_variant.featured_media | default: product.featured_media -%}
 <div class="galerie" data-galerie>
   <div class="galerie__hlavni dlazdice--{{ dlazdice }}{% if prvni == blank and ilustrace != blank and konfigurator != true %} galerie__hlavni--ilustrace{% endif %}">
     {%- if konfigurator -%}
-      <canvas data-nahled-tricka data-profil="{{ profil }}" data-vzor="{{ napis_vzor | escape }}" role="img" aria-label="{{ product.title | escape }}"></canvas>
+      <canvas data-nahled-tricka data-profil="{{ profil }}" data-vzor="{{ napis_vzor | escape }}" data-latka="{{ latka | escape }}" role="img" aria-label="{{ product.title | escape }}"></canvas>
       <p class="galerie__popis">{{ 'configurator.preview_note' | t }}</p>
     {%- endif -%}
     {%- if prvni == blank and ilustrace != blank and konfigurator != true -%}

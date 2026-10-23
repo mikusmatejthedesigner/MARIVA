@@ -89,7 +89,8 @@
     "featured_collection": {
       "type": "featured-collection",
       "settings": {
-        "pocet": 8
+        "pocet": 8,
+        "kolekce": "uvod"
       }
     },
     "segments": {

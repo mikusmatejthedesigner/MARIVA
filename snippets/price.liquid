@@ -21,7 +21,8 @@
   <span>{{ 'price.per_piece' | t }}</span>
 {%- else -%}
   {%- if product.price_varies -%}
-    <strong>{{ 'price.from' | t: price: product.price_min | money_without_trailing_zeros }}</strong>
+    {%- assign cena_od = product.price_min | money_without_trailing_zeros -%}
+    <strong>{{ 'price.from' | t: price: cena_od }}</strong>
   {%- else -%}
     <strong>{{ product.price | money_without_trailing_zeros }}</strong>
   {%- endif -%}

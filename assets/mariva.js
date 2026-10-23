@@ -240,7 +240,8 @@
       sc.data = await Potisk.nactiPohled(profil, profil.typy[0].id, profil.pohledy[0].id, '');
     }
     const hex = barvaHex(c.dataset.barva);
-    const zdroj = await Potisk.vykresliNapis({text: (c.dataset.napis || '').replace(/\\n/g, '\n'), pismo: 'bezpatkove', tucne: true, barva: Potisk.svetlost(hex) < 0.35 ? '#ffffff' : '#1B1424'});
+    const text = (c.dataset.napis || '').replace(/\\n/g, '\n');
+    const zdroj = await Potisk.vykresliNapis({text: text.indexOf('\n') < 0 && text.length > 9 && text.indexOf(' ') > 0 ? text.replace(/ (?=\S+$)/, '\n') : text, pismo: 'bezpatkove', tucne: true, barva: Potisk.svetlost(hex) < 0.35 ? '#ffffff' : '#1B1424'});
     if (!sc.napis) {
       sc.napis = Potisk.novaVrstva('text', zdroj, {u: 0.5, v: 0.2, s: 0.66});
       sc.scena.vrstvy.push(sc.napis);
@@ -264,7 +265,7 @@
       }
       if ('IntersectionObserver' in window) {
         const io = new IntersectionObserver((z) => { if (z[0].isIntersecting) { io.disconnect(); vykresliKartu(c).catch(() => {}); } }, {rootMargin: '200px'});
-        io.observe(c);
+        io.observe(c.closest('.karta') || c.parentElement); // skrytý canvas by se nikdy neprotnul s obrazovkou
       } else vykresliKartu(c).catch(() => {});
     });
   }

@@ -26,29 +26,66 @@
     document.querySelectorAll('[data-galerie] [data-media]').forEach((x) => x.setAttribute('aria-current', String(x === b)));
   });
 
-  /* ---------- lepicí lišta (mobil): ukáže se, když hlavní tlačítko odjede z obrazovky ---------- */
+  /* ---------- lepicí lišta (mobil): po rozjezdu stránky, dokud není vidět hlavní tlačítko ---------- */
   if (lista && 'IntersectionObserver' in window) {
     const cil = $('[data-pridat]') || $('#poptavka');
     if (cil) {
-      new IntersectionObserver(([z]) => { lista.hidden = z.isIntersecting || z.boundingClientRect.top > 0; }, {threshold: 0}).observe(cil);
+      let vidi = false;
+      const upravit = () => { lista.hidden = vidi || window.scrollY < 300; };
+      new IntersectionObserver(([z]) => { vidi = z.isIntersecting; upravit(); }, {threshold: 0}).observe(cil);
+      window.addEventListener('scroll', upravit, {passive: true});
     }
   }
-  if (!f) return;
+  const napis = f ? $('[data-napis]', f) : null;
+  const skupiny = f ? [...f.querySelectorAll('[data-skupina]')] : [];
+  const N = M.N.moznosti || {};
+  const skupinaPodle = (nazev) => skupiny.find((g) => g.dataset.nazev === String(nazev || '').toLowerCase());
+  const vybrano = () => skupiny.map((g) => (g.querySelector('input:checked') || {}).value);
+  /* ---------- náhled trička a mikiny ---------- */
+  let scena = null;
+  let vrstva = null;
+  let cekani = 0;
+  let token = 0;
+  const pohledy = {};
+  const zalom = (t) => (t.indexOf('\n') < 0 && t.length > 9 && t.indexOf(' ') > 0 ? t.replace(/ (?=\S+$)/, '\n') : t);
+  async function prekresli() {
+    if (!platno || !window.Potisk) return;
+    const profil = (window.MARIVA_PROFILY || {})[platno.dataset.profil];
+    if (!profil) return;
+    const moje = ++token;
+    const sel = vybrano();
+    const g = (n) => { const s = skupinaPodle(n); return s ? sel[skupiny.indexOf(s)] : null; };
+    const hex = M.barvaHex(g(N.barva) || platno.dataset.latka);
+    const strih = String(g(N.strih) || '').toLowerCase();
+    const typ = profil.typy.find((t) => t.nazev.toLowerCase() === strih) || profil.typy[0];
+    const klic = typ.id;
+    if (!pohledy[klic]) pohledy[klic] = Potisk.nactiPohled(profil, typ.id, profil.pohledy[0].id, '');
+    const text = (napis && napis.value.trim()) || platno.dataset.vzor || '';
+    const zdroj = await Potisk.vykresliNapis({text: zalom(text), pismo: 'bezpatkove', tucne: true, barva: Potisk.svetlost(hex) < 0.35 ? '#FFFFFF' : '#1B1424'});
+    const data = await pohledy[klic];
+    if (moje !== token) return;
+    if (!scena) scena = new Potisk.Scena(platno, {okraj: 0.03});
+    if (!vrstva) { vrstva = Potisk.novaVrstva('text', zdroj, {u: 0.5, v: 0.24, s: 0.92}); scena.vrstvy.push(vrstva); }
+    else { vrstva.zdroj = zdroj; vrstva.pomer = zdroj.height / zdroj.width; vrstva.s = 0.92; }
+    scena.nastav(data, hex);
+  }
+  const naplanuj = () => { clearTimeout(cekani); cekani = setTimeout(() => prekresli().catch(() => {}), 80); };
+
+  if (!f) {
+    if (platno && window.Potisk) document.fonts.load('800 40px "Archivo"', 'MATURANTI ŘŽÁ').catch(() => null).then(() => prekresli()).catch(() => {});
+    return;
+  }
 
   const tl = $('[data-pridat]', f);
   const chyba = $('[data-chyba]', f);
   const ks = f.elements.quantity;
   const vstupId = $('[data-varianta]', f);
-  const napis = $('[data-napis]', f);
   const obrazek = $('[data-obrazek]', f);
   const poznamka = f.elements['properties[Poznámka k potisku]'];
-  const skupiny = [...f.querySelectorAll('[data-skupina]')];
   const textTl = tl.textContent.trim();
-  const N = M.N.moznosti || {};
-  const skupinaPodle = (nazev) => skupiny.find((g) => g.dataset.nazev === String(nazev || '').toLowerCase());
+  document.querySelectorAll('[data-barva-nazev]').forEach((s) => s.style.setProperty('--b', M.barvaHex(s.dataset.barvaNazev)));
 
   /* ---------- varianty ---------- */
-  const vybrano = () => skupiny.map((g) => (g.querySelector('input:checked') || {}).value);
   const existuje = (i, h, sel) => hodnoty.some((v) => v.options[i] === h && sel.slice(0, i).every((s, j) => v.options[j] === s));
   function srovnat(od) {
     const sel = vybrano();
@@ -90,37 +127,6 @@
     if (!platno && v.featured_media) { const b = $(`[data-media="${v.featured_media.id}"]`); if (b) b.click(); }
   }
 
-  /* ---------- barvy, náhled trička ---------- */
-  document.querySelectorAll('[data-barva-nazev]').forEach((s) => s.style.setProperty('--b', M.barvaHex(s.dataset.barvaNazev)));
-  let scena = null;
-  let vrstva = null;
-  let cekani = 0;
-  let token = 0;
-  const pohledy = {};
-  const zalom = (t) => (t.indexOf('\n') < 0 && t.length > 9 && t.indexOf(' ') > 0 ? t.replace(/ (?=\S+$)/, '\n') : t);
-  async function prekresli() {
-    if (!platno || !window.Potisk) return;
-    const profil = (window.MARIVA_PROFILY || {})[platno.dataset.profil];
-    if (!profil) return;
-    const moje = ++token;
-    const sel = vybrano();
-    const g = (n) => { const s = skupinaPodle(n); return s ? sel[skupiny.indexOf(s)] : null; };
-    const hex = M.barvaHex(g(N.barva));
-    const strih = String(g(N.strih) || '').toLowerCase();
-    const typ = profil.typy.find((t) => t.nazev.toLowerCase() === strih) || profil.typy[0];
-    const klic = typ.id;
-    if (!pohledy[klic]) pohledy[klic] = Potisk.nactiPohled(profil, typ.id, profil.pohledy[0].id, '');
-    const text = (napis && napis.value.trim()) || platno.dataset.vzor || '';
-    const zdroj = await Potisk.vykresliNapis({text: zalom(text), pismo: 'bezpatkove', tucne: true, barva: Potisk.svetlost(hex) < 0.35 ? '#FFFFFF' : '#1B1424'});
-    const data = await pohledy[klic];
-    if (moje !== token) return;
-    if (!scena) scena = new Potisk.Scena(platno, {okraj: 0.03});
-    if (!vrstva) { vrstva = Potisk.novaVrstva('text', zdroj, {u: 0.5, v: 0.24, s: 0.92}); scena.vrstvy.push(vrstva); }
-    else { vrstva.zdroj = zdroj; vrstva.pomer = zdroj.height / zdroj.width; vrstva.s = 0.92; }
-    scena.nastav(data, hex);
-  }
-  const naplanuj = () => { clearTimeout(cekani); cekani = setTimeout(() => prekresli().catch(() => {}), 80); };
-
   /* ---------- události ---------- */
   f.addEventListener('change', (e) => {
     const i = e.target.matches('[data-moznost]') ? +e.target.dataset.moznost : -1;
@@ -157,6 +163,10 @@
       if (soubor) {
         try { vlastnosti['Obrázek'] = await M.nahratSoubor(soubor); }
         catch (err) { chyba.textContent = 'Obrázek se nepodařilo nahrát. Zkuste to znovu, nebo ho pošlete e-mailem.'; chyba.hidden = false; return; }
+      }
+      if (scena) { // náhled v košíku: uložený v prohlížeči zákazníka, v objednávce jen krátké id
+        const id = 'n' + Date.now().toString(36);
+        try { M.nahledy.uloz(id, scena.export(360, '#EBE5DB')); vlastnosti._navrh = id; } catch (err) { /* bez náhledu v košíku */ }
       }
       if (scena && M.lzeNahravat()) {
         try { vlastnosti._nahled = await M.nahratSoubor(M.dataUrlNaSoubor(scena.export(480, '#EBE5DB'), 'nahled.png'), 'nahled.png'); } catch (err) { /* náhled v košíku není nutný */ }

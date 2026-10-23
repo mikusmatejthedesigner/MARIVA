@@ -9,6 +9,7 @@
     assign odkaz = produkt.url
   endif
 -%}
+{%- if produkt != blank -%}{%- assign cena_od = produkt.price_min | money_without_trailing_zeros -%}{%- endif -%}
 {% render 'konfigurator-profily' %}
 <section class="uvod" data-uvod>
   <div class="obal">
@@ -36,7 +37,7 @@
         {%- if section.settings.cenovka -%}
           <div class="uvod__cenovka"><div class="cenovka"><div>
             <small>{{ section.settings.cenovka_nahore | escape }}</small>
-            <strong>{%- if produkt != blank -%}{{ 'price.from' | t: price: produkt.price_min | money_without_trailing_zeros }}{%- else -%}{{ section.settings.cenovka_cena | escape }}{%- endif -%}</strong>
+            <strong>{%- if produkt != blank -%}{{ 'price.from' | t: price: cena_od }}{%- else -%}{{ section.settings.cenovka_cena | escape }}{%- endif -%}</strong>
             <small>{{ section.settings.cenovka_dole | escape }}</small>
           </div></div></div>
         {%- endif -%}

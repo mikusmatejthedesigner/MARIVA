@@ -8,6 +8,7 @@
   </div>
   <form class="filtry-shopify" data-filtry>
     {%- for filter in collection.filters -%}
+      {%- if filter.param_name == 'filter.v.availability' or filter.type == 'price_range' and section.settings.ukazat_cenu == false -%}{%- continue -%}{%- endif -%}
       <details class="filtr">
         <summary>{{ filter.label | escape }}{% if filter.active_values.size > 0 %} ({{ filter.active_values.size }}){% endif %}</summary>
         <div class="filtr__obsah">
@@ -41,7 +42,8 @@
   {%- render 'pagination', paginate: paginate -%}
 </div>
 {%- endpaginate -%}
-{%- if collection.products.size > 0 -%}{% render 'konfigurator-profily' %}<script src="{{ 'potisk.js' | asset_url }}" defer></script>{%- endif -%}
+{% render 'konfigurator-profily' %}
+<script src="{{ 'potisk.js' | asset_url }}" defer></script>
 <script>
   document.addEventListener('change', function (e) {
     var f = e.target.closest('[data-filtry]');
@@ -55,6 +57,7 @@
 {
   "name": "Kolekce",
   "settings": [
+    {"type": "checkbox", "id": "ukazat_cenu", "label": "Filtr podle ceny", "default": false, "info": "Většina produktů je na poptávku, takže filtr ceny zatím nedává smysl."},
     {"type": "range", "id": "na_stranku", "label": "Produktů na stránku", "min": 8, "max": 48, "step": 4, "default": 24}
   ]
 }

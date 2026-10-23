@@ -4,6 +4,12 @@
 {%- endcomment -%}
 <script>
   window.MARIVA_PROFILY = window.MARIVA_PROFILY || {};
+  window.MARIVA_PROFILY["mikina"] = {
+    id: "mikina", zaklad: '', nazev: "Mikina s vlastním potiskem",
+    pohledy: [{"id":"predek","nazev":"Přední strana"}],
+    zdroje: {"predek": {soubor: {{ "konfigurator-mikina-predek.webp" | asset_url | json }}, linky: {{ "konfigurator-mikina-predek-linky.webp" | asset_url | json }}, sirka: 1312, vyska: 1510}},
+    typy: [{"id":"kapuce","nazev":"S kapucí","pohledy":{"predek":{"zdroj":"predek","oblast":{"x":0.3839,"y":0.4351,"w":0.2321,"h":0.2689,"sirkaCm":26.4,"vyskaCm":35.2}}}}]
+  };
   window.MARIVA_PROFILY["tricko"] = {
     id: "tricko", zaklad: '', nazev: "Tričko s vlastním potiskem",
     pohledy: [{"id":"predek","nazev":"Přední strana"}],

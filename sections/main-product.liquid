@@ -7,6 +7,8 @@
 {%- liquid
   assign poptavka = false
   assign konfigurator = false
+  assign nahled = false
+  assign latka = ''
   assign dlazdice = 'papir'
   assign stitek = ''
   assign ilustrace = ''
@@ -19,9 +21,14 @@
         assign poptavka = true
       when 'konfigurator'
         assign konfigurator = true
+      when 'nahled'
+        assign nahled = true
       when 'barva-magenta', 'barva-zluta', 'barva-azur', 'barva-papir'
         assign dlazdice = tag_male | remove_first: 'barva-'
     endcase
+    if tag_male contains 'latka:'
+      assign latka = tag | split: ':' | last
+    endif
     if tag_male contains 'ilustrace:'
       assign ilustrace = tag_male | split: ':' | last
     endif
@@ -35,6 +42,10 @@
       assign napis_vzor = tag | split: ':' | last
     endif
   endfor
+  assign zivy = false
+  if konfigurator or nahled
+    assign zivy = true
+  endif
   assign varianta = product.selected_or_first_available_variant
   assign moznost_strih = settings.moznost_strih | downcase
   assign moznost_barva = settings.moznost_barva | downcase
@@ -48,7 +59,7 @@
     </ol>
   </div>
   <div class="detail" data-produkt>
-    {%- render 'product-gallery', product: product, dlazdice: dlazdice, ilustrace: ilustrace, konfigurator: konfigurator, profil: profil, napis_vzor: napis_vzor -%}
+    {%- render 'product-gallery', product: product, dlazdice: dlazdice, ilustrace: ilustrace, konfigurator: zivy, profil: profil, napis_vzor: napis_vzor, latka: latka -%}
     <div class="detail__info">
       {%- if stitek != blank -%}<span class="stitek stitek--zluta">{{ stitek | escape }}</span>{%- endif -%}
       <h1>{{ product.title | escape }}</h1>
@@ -109,8 +120,8 @@
             {%- endunless -%}
 
             {%- if konfigurator -%}
-              <fieldset class="volba potisk-volba">
-                <legend class="volba__nadpis">{{ 'configurator.print' | t }}</legend>
+              <div class="volba potisk-volba" role="group" aria-labelledby="potisk-nadpis">
+                <h2 class="volba__nadpis" id="potisk-nadpis">{{ 'configurator.print' | t }}</h2>
                 <label class="pole"><span class="pole__popis">{{ 'configurator.text_label' | t }}</span>
                   <textarea name="properties[Nápis]" rows="2" maxlength="120" placeholder="{{ napis_vzor | escape }}" data-napis></textarea>
                 </label>
@@ -125,7 +136,7 @@
                 <label class="pole"><span class="pole__popis">{{ 'configurator.note_label' | t }} <em>{{ 'inquiry.optional' | t }}</em></span>
                   <textarea name="properties[Poznámka k potisku]" rows="2" maxlength="300" placeholder="{{ 'configurator.note_placeholder' | t }}"></textarea>
                 </label>
-              </fieldset>
+              </div>
             {%- endif -%}
 
             <div class="volba">
@@ -181,7 +192,7 @@
 
 <script type="application/json" data-varianty>{{ product.variants | json }}</script>
 <script type="application/ld+json">{{ product | structured_data }}</script>
-{%- if konfigurator -%}
+{%- if zivy -%}
   {% render 'konfigurator-profily' %}
   <script src="{{ 'potisk.js' | asset_url }}" defer></script>
 {%- endif -%}

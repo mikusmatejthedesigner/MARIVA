@@ -6,7 +6,9 @@
     },
     "doporuceni": {
       "type": "product-recommendations",
-      "settings": {}
+      "settings": {
+        "kolekce": "uvod"
+      }
     }
   },
   "order": [

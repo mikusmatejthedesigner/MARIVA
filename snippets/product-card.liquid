@@ -5,6 +5,7 @@
   - barva-magenta | barva-zluta | barva-azur | barva-papir: barva dlaždice
   - stitek:Text: odznak na kartě (např. stitek:Stužkovák)
   - napis:TEXT: ukázkový nápis v živém náhledu (např. napis:TŘÍDA 4.B)
+  - nahled: živý náhled (profil-<id>) bez konfigurátoru, latka:Název = barva látky v náhledu
   - ilustrace:serpa: když produkt nemá fotku, ukáže se ilustrace z motivu (assets/ilustrace-serpa.svg)
   Parametry: card_product
 {%- endcomment -%}
@@ -16,11 +17,15 @@
   assign profil = 'tricko'
   assign napis = 'TŘÍDA 4.B'
   assign ilustrace = ''
+  assign nahled = false
+  assign latka = ''
   for tag in card_product.tags
     assign tag_male = tag | downcase
     case tag_male
       when 'konfigurator'
         assign konfigurator = true
+      when 'nahled'
+        assign nahled = true
       when 'poptavka'
         assign poptavka = true
       when 'barva-magenta', 'barva-zluta', 'barva-azur', 'barva-papir'
@@ -31,6 +36,9 @@
     endif
     if tag_male contains 'profil-'
       assign profil = tag_male | remove_first: 'profil-'
+    endif
+    if tag_male contains 'latka:'
+      assign latka = tag | split: ':' | last
     endif
     if tag_male contains 'ilustrace:'
       assign ilustrace = tag_male | split: ':' | last
@@ -48,8 +56,8 @@
       {%- elsif ilustrace != blank -%}
         <img src="{{ 'ilustrace-' | append: ilustrace | append: '.svg' | asset_url }}" alt="" loading="lazy" width="400" height="400" class="karta__ilustrace">
       {%- endif -%}
-      {%- if konfigurator -%}
-        <canvas data-render="{{ profil }}" data-napis="{{ napis | escape }}" hidden></canvas>
+      {%- if konfigurator or nahled -%}
+        <canvas data-render="{{ profil }}" data-napis="{{ napis | escape }}"{% if latka != blank %} data-barva="{{ latka | escape }}"{% endif %} hidden></canvas>
       {%- endif -%}
     </a>
     {%- if stitek != blank -%}<span class="stitek{% unless konfigurator %} stitek--zluta{% endunless %}">{{ stitek }}</span>{%- endif -%}

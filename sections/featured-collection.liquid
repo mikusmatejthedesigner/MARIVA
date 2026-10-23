@@ -5,7 +5,7 @@
   endif
   assign ma_konfigurator = false
   for p in kolekce.products limit: section.settings.pocet
-    if p.tags contains 'konfigurator'
+    if p.tags contains 'konfigurator' or p.tags contains 'nahled'
       assign ma_konfigurator = true
     endif
   endfor

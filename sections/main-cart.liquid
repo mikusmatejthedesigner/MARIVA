@@ -27,8 +27,8 @@
                 <a class="odkaz" href="{{ item.url_to_remove }}" style="justify-self:start;font-size:14px">{{ 'cart.remove' | t }}</a>
               </div>
               <div class="kosik-radek__cena">
-                {{ item.final_line_price | money }}
-                {%- if item.original_line_price > item.final_line_price -%}<br><s class="tlumene mala">{{ item.original_line_price | money }}</s>{%- endif -%}
+                {{ item.final_line_price | money_without_trailing_zeros }}
+                {%- if item.original_line_price > item.final_line_price -%}<br><s class="tlumene mala">{{ item.original_line_price | money_without_trailing_zeros }}</s>{%- endif -%}
               </div>
             </li>
           {%- endfor -%}
@@ -38,9 +38,9 @@
       <aside class="kosik-souhrn-box">
         <div class="box">
           {%- for discount in cart.cart_level_discount_applications -%}
-            <div class="souhrn-radek"><span>{{ 'cart.discount' | t }}: {{ discount.title | escape }}</span><span>−{{ discount.total_allocated_amount | money }}</span></div>
+            <div class="souhrn-radek"><span>{{ 'cart.discount' | t }}: {{ discount.title | escape }}</span><span>−{{ discount.total_allocated_amount | money_without_trailing_zeros }}</span></div>
           {%- endfor -%}
-          <div class="souhrn-radek"><span>{{ 'cart.subtotal' | t }}</span><strong>{{ cart.total_price | money }}</strong></div>
+          <div class="souhrn-radek"><span>{{ 'cart.subtotal' | t }}</span><strong>{{ cart.total_price | money_without_trailing_zeros }}</strong></div>
           <div class="dodani"><svg aria-hidden="true"><use href="#i-kalendar"/></svg><span>{{ 'products.delivery_prefix' | t }} <strong data-termin>{{ settings.dodani_text }}</strong></span></div>
           {%- if settings.kosik_poznamka -%}
             <label class="pole kosik-poznamka">
