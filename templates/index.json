@@ -57,7 +57,7 @@
           "settings": {
             "ikona": "kalendar",
             "nadpis": "Hotovo do 3 až 5 týdnů",
-            "text": "Při objednávce dnes {termin}"
+            "text": "Při objednávce dnes [termin]"
           }
         },
         "vyhoda_3": {
@@ -216,7 +216,7 @@
         "krok_3": {
           "type": "krok",
           "settings": {
-            "kdy": "{termin}",
+            "kdy": "[termin]",
             "nadpis": "Máte hotovo",
             "text": "Vyzvednete si u nás ve Všechovicích, nebo vám zakázku pošleme."
           }
@@ -240,7 +240,7 @@
           "type": "otazka",
           "settings": {
             "otazka": "Jak dlouho výroba trvá?",
-            "odpoved": "<p>Dodáváme do 3 až 5 týdnů od objednávky. Při objednávce dnes je hotovo {termin}. Pokud to spěchá, zavolejte nám a domluvíme se.</p>"
+            "odpoved": "<p>Dodáváme do 3 až 5 týdnů od objednávky. Při objednávce dnes je hotovo [termin]. Pokud to spěchá, zavolejte nám a domluvíme se.</p>"
           }
         },
         "otazka_2": {

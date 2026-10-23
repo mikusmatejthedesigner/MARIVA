@@ -8,7 +8,7 @@
       {%- for block in section.blocks -%}
         <details{% if forloop.first %} open{% endif %} {{ block.shopify_attributes }}>
           <summary>{{ block.settings.otazka | escape }}</summary>
-          <div class="richtext" style="padding:0 0 18px">{{ block.settings.odpoved | replace: '{termin}', '<span data-termin>do 3 až 5 týdnů</span>' }}</div>
+          <div class="richtext" style="padding:0 0 18px">{{ block.settings.odpoved | replace: '[termin]', '<span data-termin>do 3 až 5 týdnů</span>' }}</div>
         </details>
       {%- endfor -%}
     </div>
@@ -21,7 +21,7 @@
     "@type": "FAQPage",
     "mainEntity": [
       {%- for block in section.blocks -%}
-        {"@type": "Question", "name": {{ block.settings.otazka | json }}, "acceptedAnswer": {"@type": "Answer", "text": {{ block.settings.odpoved | strip_html | replace: '{termin}', settings.dodani_text | json }}}}{% unless forloop.last %},{% endunless %}
+        {"@type": "Question", "name": {{ block.settings.otazka | json }}, "acceptedAnswer": {"@type": "Answer", "text": {{ block.settings.odpoved | strip_html | replace: '[termin]', settings.dodani_text | json }}}}{% unless forloop.last %},{% endunless %}
       {%- endfor -%}
     ]
   }
@@ -42,7 +42,7 @@
       "name": "Otázka",
       "settings": [
         {"type": "text", "id": "otazka", "label": "Otázka", "default": "Jak dlouho výroba trvá?"},
-        {"type": "richtext", "id": "odpoved", "label": "Odpověď", "default": "<p>Dodáváme do 3 až 5 týdnů od objednávky. Při objednávce dnes je hotovo {termin}.</p>", "info": "{termin} se nahradí termínem dodání."}
+        {"type": "richtext", "id": "odpoved", "label": "Odpověď", "default": "<p>Dodáváme do 3 až 5 týdnů od objednávky. Při objednávce dnes je hotovo [termin].</p>", "info": "[termin] se nahradí termínem dodání."}
       ]
     }
   ],
@@ -50,7 +50,7 @@
     {
       "name": "Časté otázky",
       "blocks": [
-        {"type": "otazka", "settings": {"otazka": "Jak dlouho výroba trvá?", "odpoved": "<p>Dodáváme do 3 až 5 týdnů od objednávky. Při objednávce dnes je hotovo {termin}. Pokud to spěchá, zavolejte nám a domluvíme se.</p>"}},
+        {"type": "otazka", "settings": {"otazka": "Jak dlouho výroba trvá?", "odpoved": "<p>Dodáváme do 3 až 5 týdnů od objednávky. Při objednávce dnes je hotovo [termin]. Pokud to spěchá, zavolejte nám a domluvíme se.</p>"}},
         {"type": "otazka", "settings": {"otazka": "Jak můžu zaplatit?", "odpoved": "<p>Způsob platby vyberete v pokladně: online kartou, převodem, nebo podle nabídky obchodu i na dobírku.</p>"}},
         {"type": "otazka", "settings": {"otazka": "V jakém formátu poslat obrázek nebo logo?", "odpoved": "<p>Stačí JPG nebo PNG, logo klidně i v PDF. Čím větší rozlišení, tím ostřejší potisk. Konfigurátor vám rovnou ukáže, jestli obrázek pro tisk stačí.</p>"}},
         {"type": "otazka", "settings": {"otazka": "Můžu objednat jen jedno tričko?", "odpoved": "<p>Ano, tričko s vlastním potiskem objednáte v konfigurátoru i po jednom kusu. Pro celou třídu nebo tým nám pošlete poptávku a připravíme nabídku.</p>"}},

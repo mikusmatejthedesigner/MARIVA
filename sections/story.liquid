@@ -6,7 +6,7 @@
         <div class="richtext" style="color:rgba(255,255,255,.82)">{{ section.settings.text }}</div>
         <div class="tlacitka">
           {%- if section.settings.tlacitko_1 != blank -%}
-            <a class="tl tl--zluta" href="{{ section.settings.odkaz_1 | default: 'tel:' | append: settings.telefon | remove: ' ' }}">{{ section.settings.tlacitko_1 | replace: '{telefon}', settings.telefon | escape }}</a>
+            <a class="tl tl--zluta" href="{{ section.settings.odkaz_1 | default: 'tel:' | append: settings.telefon | remove: ' ' }}">{{ section.settings.tlacitko_1 | replace: '[telefon]', settings.telefon | escape }}</a>
           {%- endif -%}
           {%- if section.settings.tlacitko_2 != blank -%}
             <a class="tl" href="{{ section.settings.odkaz_2 | default: settings.mapa | default: '#' }}" target="_blank" rel="noopener">{{ section.settings.tlacitko_2 | escape }}</a>
@@ -24,7 +24,7 @@
   "settings": [
     {"type": "text", "id": "nadpis", "label": "Nadpis", "default": "Tiskárna, kterou znáte jménem"},
     {"type": "richtext", "id": "text", "label": "Text", "default": "<p>Tiskneme ve Všechovicích od roku 2004. Trička pro maturanty, šerpy pro předškoláky, mikiny pro oddíly i hrnky pro babičky.</p><p>Nejsme anonymní velkovýroba. Když si nevíte rady s návrhem, velikostmi nebo termínem, zavolejte nám.</p>"},
-    {"type": "text", "id": "tlacitko_1", "label": "Tlačítko 1", "default": "Zavolat {telefon}", "info": "{telefon} se nahradí telefonem z nastavení motivu."},
+    {"type": "text", "id": "tlacitko_1", "label": "Tlačítko 1", "default": "Zavolat [telefon]", "info": "[telefon] se nahradí telefonem z nastavení motivu."},
     {"type": "url", "id": "odkaz_1", "label": "Odkaz tlačítka 1", "info": "Bez odkazu volá telefon z nastavení."},
     {"type": "text", "id": "tlacitko_2", "label": "Tlačítko 2", "default": "Všechovice 212 na mapě"},
     {"type": "url", "id": "odkaz_2", "label": "Odkaz tlačítka 2", "info": "Bez odkazu se použije mapa z nastavení motivu."},

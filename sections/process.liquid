@@ -1,11 +1,11 @@
-{%- comment -%} Průběh zakázky. {termin} v textu „Kdy“ se nahradí daty dodání od dnešního dne. {%- endcomment -%}
+{%- comment -%} Průběh zakázky. [termin] v textu „Kdy“ se nahradí daty dodání od dnešního dne. {%- endcomment -%}
 <section class="sekce{% if section.settings.podklad %} sekce--papir2{% endif %}">
   <div class="obal">
     <div class="sekce__hlava"><div><h2>{{ section.settings.nadpis | escape }}</h2></div></div>
     <ol class="cesta">
       {%- for block in section.blocks -%}
         <li {{ block.shopify_attributes }}>
-          <span class="cesta__kdy">{{ block.settings.kdy | escape | replace: '{termin}', '<span data-termin-kdy>do 3 až 5 týdnů</span>' }}</span>
+          <span class="cesta__kdy">{{ block.settings.kdy | escape | replace: '[termin]', '<span data-termin-kdy>do 3 až 5 týdnů</span>' }}</span>
           <h3>{{ block.settings.nadpis | escape }}</h3>
           <p>{{ block.settings.text | escape }}</p>
         </li>
@@ -26,7 +26,7 @@
       "type": "krok",
       "name": "Krok",
       "settings": [
-        {"type": "text", "id": "kdy", "label": "Kdy", "default": "Dnes", "info": "{termin} se nahradí daty dodání."},
+        {"type": "text", "id": "kdy", "label": "Kdy", "default": "Dnes", "info": "[termin] se nahradí daty dodání."},
         {"type": "text", "id": "nadpis", "label": "Nadpis", "default": "Navrhnete nebo poptáte"},
         {"type": "textarea", "id": "text", "label": "Text", "default": "Tričko si složíte v konfigurátoru, u ostatního nám napíšete, co potřebujete."}
       ]
@@ -39,7 +39,7 @@
       "blocks": [
         {"type": "krok", "settings": {"kdy": "Dnes", "nadpis": "Navrhnete nebo poptáte", "text": "Tričko si složíte v konfigurátoru, u ostatního nám napíšete, co potřebujete."}},
         {"type": "krok", "settings": {"kdy": "Hned potom", "nadpis": "Tiskneme ve Všechovicích", "text": "Potisk připravíme a vytiskneme u nás. Kdyby bylo něco nejasné, ozveme se vám."}},
-        {"type": "krok", "settings": {"kdy": "{termin}", "nadpis": "Máte hotovo", "text": "Vyzvednete si u nás ve Všechovicích, nebo vám zakázku pošleme."}}
+        {"type": "krok", "settings": {"kdy": "[termin]", "nadpis": "Máte hotovo", "text": "Vyzvednete si u nás ve Všechovicích, nebo vám zakázku pošleme."}}
       ]
     }
   ]
