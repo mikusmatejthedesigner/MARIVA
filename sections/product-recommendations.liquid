@@ -1,0 +1,30 @@
+{%- comment -%} Doporučené produkty (Shopify Search & Discovery). Načítají se přes Section Rendering API. {%- endcomment -%}
+<section class="sekce" data-doporuceni data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product.id }}&limit={{ section.settings.pocet }}">
+  {%- if recommendations.performed? and recommendations.products_count > 0 -%}
+    <div class="obal">
+      <div class="sekce__hlava"><div><h2>{{ section.settings.nadpis | escape }}</h2></div><a class="odkaz sipka" href="{{ routes.all_products_collection_url }}">{{ 'general.all_products' | t }}</a></div>
+      <ul class="produkty">
+        {%- for p in recommendations.products -%}{% render 'product-card', card_product: p %}{%- endfor -%}
+      </ul>
+    </div>
+  {%- endif -%}
+</section>
+<script>
+  (function () {
+    var s = document.currentScript.previousElementSibling;
+    if (!s || s.children.length || !s.dataset.url) return;
+    fetch(s.dataset.url).then(function (r) { return r.text(); }).then(function (h) {
+      var n = new DOMParser().parseFromString(h, 'text/html').querySelector('[data-doporuceni]');
+      if (n && n.children.length) { s.innerHTML = n.innerHTML; if (window.Mariva) Mariva.vykresliKarty(s); }
+    });
+  })();
+</script>
+{% schema %}
+{
+  "name": "Doporučené produkty",
+  "settings": [
+    {"type": "text", "id": "nadpis", "label": "Nadpis", "default": "Mohlo by se hodit"},
+    {"type": "range", "id": "pocet", "label": "Počet produktů", "min": 2, "max": 8, "step": 1, "default": 4}
+  ]
+}
+{% endschema %}

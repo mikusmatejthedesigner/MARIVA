@@ -1,0 +1,40 @@
+{%- comment -%}
+  Poptávka přes kontaktní formulář Shopify (přijde na e-mail obchodu).
+  Soubory: Shopify formulář soubor nepošle. S klíčem Uploadcare (Nastavení motivu > Konfigurátor) se soubory nahrají
+  a do poptávky přijdou odkazy, jinak zákazník pošle soubor e-mailem.
+  Parametry: produkt_nazev (text), id (unikátní id formuláře), popis_placeholder
+{%- endcomment -%}
+{%- form 'contact', id: id, class: 'formular', data-poptavka: '' -%}
+  {%- if form.posted_successfully? -%}
+    <div class="potvrzeni" role="status">
+      <h3>{{ 'inquiry.success_title' | t }}</h3>
+      <p>{{ 'inquiry.success' | t }}</p>
+    </div>
+  {%- else -%}
+    {%- if form.errors -%}<div class="zprava zprava--chyba" role="alert">{{ form.errors | default_errors }}</div>{%- endif -%}
+    <input type="hidden" name="contact[Produkt]" value="{{ produkt_nazev | escape }}">
+    <input type="hidden" name="contact[Návrh]" value="" data-poptavka-navrh>
+    <input type="hidden" name="contact[Soubory]" value="" data-poptavka-soubory>
+    <div class="formular__dva">
+      <label class="pole"><span class="pole__popis">{{ 'inquiry.quantity' | t }}</span><input name="contact[Počet kusů]" type="number" min="1" inputmode="numeric" required data-poptavka-pocet></label>
+      <label class="pole"><span class="pole__popis">{{ 'inquiry.deadline' | t }} <em>{{ 'inquiry.optional' | t }}</em></span><input name="contact[Termín]" type="date"></label>
+    </div>
+    <label class="pole"><span class="pole__popis">{{ 'inquiry.body' | t }}</span><textarea name="contact[body]" rows="4" required placeholder="{{ popis_placeholder | default: 'inquiry.body_placeholder' | t | escape }}" data-poptavka-text></textarea></label>
+    {%- if settings.uploadcare_klic != blank -%}
+      <label class="pole"><span class="pole__popis">{{ 'inquiry.files' | t }} <em>{{ 'inquiry.optional' | t }}</em></span><input type="file" multiple accept="image/*,.pdf,.doc,.docx,.xls,.xlsx,.txt" data-poptavka-vstup></label>
+    {%- else -%}
+      <p class="tlumene mala">{{ 'inquiry.files_email' | t: email: settings.email }}</p>
+    {%- endif -%}
+    <div class="formular__dva">
+      <label class="pole"><span class="pole__popis">{{ 'inquiry.name' | t }}</span><input name="contact[name]" type="text" autocomplete="name" required></label>
+      <label class="pole"><span class="pole__popis">{{ 'inquiry.organization' | t }} <em>{{ 'inquiry.optional' | t }}</em></span><input name="contact[Organizace]" type="text" autocomplete="organization"></label>
+    </div>
+    <div class="formular__dva">
+      <label class="pole"><span class="pole__popis">{{ 'inquiry.email' | t }}</span><input name="contact[email]" type="email" autocomplete="email" required></label>
+      <label class="pole"><span class="pole__popis">{{ 'inquiry.phone' | t }} <em>{{ 'inquiry.optional' | t }}</em></span><input name="contact[phone]" type="tel" autocomplete="tel"></label>
+    </div>
+    <label class="souhlas"><input type="checkbox" required><span>{{ 'inquiry.consent' | t }}</span></label>
+    <p class="chyba" data-poptavka-chyba hidden></p>
+    <button type="submit" class="tl tl--magenta tl--velke">{{ 'inquiry.submit' | t }}</button>
+  {%- endif -%}
+{%- endform -%}

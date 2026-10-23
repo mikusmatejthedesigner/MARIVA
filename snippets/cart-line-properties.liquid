@@ -1,0 +1,9 @@
+{%- comment -%} Vlastnosti položky (potisk). Vlastnosti začínající podtržítkem jsou jen pro tiskárnu, zákazníkovi se neukazují. Parametry: item {%- endcomment -%}
+{%- for property in item.properties -%}
+  {%- assign prvni_znak = property.first | slice: 0 -%}
+  {%- if property.last != blank and prvni_znak != '_' -%}
+    <span class="tlumene">{{ property.first }}:
+      {%- if property.last contains '://' %} <a href="{{ property.last }}" target="_blank" rel="noopener">{{ property.last | split: '/' | last | default: 'odkaz' }}</a>{% else %} {{ property.last }}{% endif -%}
+    </span>
+  {%- endif -%}
+{%- endfor -%}

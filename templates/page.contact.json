@@ -1,0 +1,13 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-inquiry",
+      "settings": {
+        "produkt": "Dotaz z kontaktní stránky"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

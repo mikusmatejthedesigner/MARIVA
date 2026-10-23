@@ -1,0 +1,13 @@
+{%- comment -%}
+  Vygenerováno skriptem technika/scripts/shopify/sestav-motiv.mjs, ručně neupravovat.
+  Geometrie potisku (oblast v cm) pro konfigurátor a živé náhledy. Adresy obrázků jdou přes asset_url.
+{%- endcomment -%}
+<script>
+  window.MARIVA_PROFILY = window.MARIVA_PROFILY || {};
+  window.MARIVA_PROFILY["tricko"] = {
+    id: "tricko", zaklad: '', nazev: "Tričko s vlastním potiskem",
+    pohledy: [{"id":"predek","nazev":"Přední strana"}],
+    zdroje: {"predek": {soubor: {{ "konfigurator-tricko-predek.webp" | asset_url | json }}, linky: {{ "konfigurator-tricko-predek-linky.webp" | asset_url | json }}, sirka: 2030, vyska: 1800}},
+    typy: [{"id":"klasicke","nazev":"Klasické","pohledy":{"predek":{"zdroj":"predek","oblast":{"x":0.3401,"y":0.2561,"w":0.3189,"h":0.4795,"sirkaCm":30,"vyskaCm":40}}}},{"id":"damske","nazev":"Dámské","pohledy":{"predek":{"zdroj":"predek","oblast":{"x":0.3433,"y":0.2533,"w":0.3124,"h":0.4743,"sirkaCm":26,"vyskaCm":35}}}},{"id":"detske","nazev":"Dětské","pohledy":{"predek":{"zdroj":"predek","oblast":{"x":0.3541,"y":0.2544,"w":0.2909,"h":0.4429,"sirkaCm":20,"vyskaCm":27}}}}]
+  };
+</script>

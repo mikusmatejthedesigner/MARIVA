@@ -1,0 +1,294 @@
+{
+  "sections": {
+    "hero_navrh": {
+      "type": "hero-navrh",
+      "settings": {},
+      "blocks": {
+        "tip_1": {
+          "type": "tip",
+          "settings": {
+            "popisek": "Maturanti 2027",
+            "text": "MATURANTI 2027"
+          }
+        },
+        "tip_2": {
+          "type": "tip",
+          "settings": {
+            "popisek": "Třída 4.B",
+            "text": "TŘÍDA 4.B"
+          }
+        },
+        "tip_3": {
+          "type": "tip",
+          "settings": {
+            "popisek": "Hasiči",
+            "text": "HASIČI 2026"
+          }
+        },
+        "tip_4": {
+          "type": "tip",
+          "settings": {
+            "popisek": "Dárek pro tátu",
+            "text": "NEJLEPŠÍ TÁTA"
+          }
+        }
+      },
+      "block_order": [
+        "tip_1",
+        "tip_2",
+        "tip_3",
+        "tip_4"
+      ]
+    },
+    "trust_bar": {
+      "type": "trust-bar",
+      "settings": {},
+      "blocks": {
+        "vyhoda_1": {
+          "type": "vyhoda",
+          "settings": {
+            "ikona": "tisk",
+            "nadpis": "Tiskneme od roku 2004",
+            "text": "Vlastní tiskárna ve Všechovicích"
+          }
+        },
+        "vyhoda_2": {
+          "type": "vyhoda",
+          "settings": {
+            "ikona": "kalendar",
+            "nadpis": "Hotovo do 3 až 5 týdnů",
+            "text": "Při objednávce dnes {termin}"
+          }
+        },
+        "vyhoda_3": {
+          "type": "vyhoda",
+          "settings": {
+            "ikona": "oko",
+            "nadpis": "Náhled hned",
+            "text": "Uvidíte potisk dřív, než objednáte"
+          }
+        },
+        "vyhoda_4": {
+          "type": "vyhoda",
+          "settings": {
+            "ikona": "penize",
+            "nadpis": "Platba i na dobírku",
+            "text": "Převodem, dobírkou nebo hotově"
+          }
+        }
+      },
+      "block_order": [
+        "vyhoda_1",
+        "vyhoda_2",
+        "vyhoda_3",
+        "vyhoda_4"
+      ]
+    },
+    "featured_collection": {
+      "type": "featured-collection",
+      "settings": {}
+    },
+    "segments": {
+      "type": "segments",
+      "settings": {},
+      "blocks": {
+        "skupina_1": {
+          "type": "skupina",
+          "settings": {
+            "nadpis": "Maturanti a absolventi",
+            "text": "Šerpy, stužky, trička a mikiny pro celou třídu.",
+            "barva": "magenta",
+            "ilustrace_1": "serpa",
+            "ilustrace_2": "stuzky"
+          }
+        },
+        "skupina_2": {
+          "type": "skupina",
+          "settings": {
+            "nadpis": "Mateřské školy",
+            "text": "Dětská trička, šerpy, vesty a vaky s názvem třídy.",
+            "barva": "zluta",
+            "ilustrace_1": "vesta",
+            "ilustrace_2": "placka"
+          }
+        },
+        "skupina_3": {
+          "type": "skupina",
+          "settings": {
+            "nadpis": "Sport a spolky",
+            "text": "Trička, mikiny a vaky pro tým, oddíl nebo hasiče.",
+            "barva": "azur",
+            "ilustrace_1": "vak",
+            "ilustrace_2": "ksiltovka"
+          }
+        },
+        "skupina_4": {
+          "type": "skupina",
+          "settings": {
+            "nadpis": "Firmy",
+            "text": "Trička s logem, pracovní oděvy, hrnky a propisky.",
+            "barva": "inkoust",
+            "ilustrace_1": "zastera",
+            "ilustrace_2": "propiska"
+          }
+        },
+        "skupina_5": {
+          "type": "skupina",
+          "settings": {
+            "nadpis": "Dárky",
+            "text": "Tričko s fotkou, hrnek, polštářek nebo puzzle.",
+            "barva": "papir",
+            "ilustrace_1": "hrnek",
+            "ilustrace_2": "polstarek"
+          }
+        }
+      },
+      "block_order": [
+        "skupina_1",
+        "skupina_2",
+        "skupina_3",
+        "skupina_4",
+        "skupina_5"
+      ]
+    },
+    "seasonal": {
+      "type": "seasonal",
+      "settings": {},
+      "blocks": {
+        "sezona_1": {
+          "type": "sezona",
+          "settings": {
+            "mesice": "9,10,11,12,1"
+          }
+        },
+        "sezona_2": {
+          "type": "sezona",
+          "settings": {
+            "mesice": "2,3,4,5,6",
+            "nadpis": "Poslední zvonění. Ať je na co vzpomínat.",
+            "text": "Trička a mikiny pro celou třídu, dětské šerpy pro předškoláky a placky na rozloučenou. Pošlete nám seznam jmen a my se vám ozveme s nabídkou.",
+            "polozky": "Trička a mikiny pro třídu\nDětské šerpy na rozloučení se školkou\nPlacky a polštářky na památku\nJména na záda i na rukáv",
+            "ilustrace_1": "serpa",
+            "ilustrace_2": "placka",
+            "ilustrace_3": "polstarek"
+          }
+        },
+        "sezona_3": {
+          "type": "sezona",
+          "settings": {
+            "mesice": "7,8",
+            "nadpis": "Léto s vlastním tričkem.",
+            "text": "Trička pro tábor, turnaj nebo firemní den. Vaky a kšiltovky k tomu. Napište, kolik vás je, a my se ozveme s nabídkou.",
+            "polozky": "Trička pro tábor a oddíl\nKšiltovky a sportovní vaky\nTrička s logem na firemní akci\nDárky s fotkou z léta",
+            "odkaz_text": "Vše pro sport a spolky",
+            "ilustrace_1": "vak",
+            "ilustrace_2": "ksiltovka",
+            "ilustrace_3": "rucnik"
+          }
+        }
+      },
+      "block_order": [
+        "sezona_1",
+        "sezona_2",
+        "sezona_3"
+      ]
+    },
+    "process": {
+      "type": "process",
+      "settings": {},
+      "blocks": {
+        "krok_1": {
+          "type": "krok",
+          "settings": {
+            "kdy": "Dnes",
+            "nadpis": "Navrhnete nebo poptáte",
+            "text": "Tričko si složíte v konfigurátoru, u ostatního nám napíšete, co potřebujete."
+          }
+        },
+        "krok_2": {
+          "type": "krok",
+          "settings": {
+            "kdy": "Hned potom",
+            "nadpis": "Tiskneme ve Všechovicích",
+            "text": "Potisk připravíme a vytiskneme u nás. Kdyby bylo něco nejasné, ozveme se vám."
+          }
+        },
+        "krok_3": {
+          "type": "krok",
+          "settings": {
+            "kdy": "{termin}",
+            "nadpis": "Máte hotovo",
+            "text": "Vyzvednete si u nás ve Všechovicích, nebo vám zakázku pošleme."
+          }
+        }
+      },
+      "block_order": [
+        "krok_1",
+        "krok_2",
+        "krok_3"
+      ]
+    },
+    "story": {
+      "type": "story",
+      "settings": {}
+    },
+    "faq": {
+      "type": "faq",
+      "settings": {},
+      "blocks": {
+        "otazka_1": {
+          "type": "otazka",
+          "settings": {
+            "otazka": "Jak dlouho výroba trvá?",
+            "odpoved": "<p>Dodáváme do 3 až 5 týdnů od objednávky. Při objednávce dnes je hotovo {termin}. Pokud to spěchá, zavolejte nám a domluvíme se.</p>"
+          }
+        },
+        "otazka_2": {
+          "type": "otazka",
+          "settings": {
+            "otazka": "Jak můžu zaplatit?",
+            "odpoved": "<p>Způsob platby vyberete v pokladně: online kartou, převodem, nebo podle nabídky obchodu i na dobírku.</p>"
+          }
+        },
+        "otazka_3": {
+          "type": "otazka",
+          "settings": {
+            "otazka": "V jakém formátu poslat obrázek nebo logo?",
+            "odpoved": "<p>Stačí JPG nebo PNG, logo klidně i v PDF. Čím větší rozlišení, tím ostřejší potisk. Konfigurátor vám rovnou ukáže, jestli obrázek pro tisk stačí.</p>"
+          }
+        },
+        "otazka_4": {
+          "type": "otazka",
+          "settings": {
+            "otazka": "Můžu objednat jen jedno tričko?",
+            "odpoved": "<p>Ano, tričko s vlastním potiskem objednáte v konfigurátoru i po jednom kusu. Pro celou třídu nebo tým nám pošlete poptávku a připravíme nabídku.</p>"
+          }
+        },
+        "otazka_5": {
+          "type": "otazka",
+          "settings": {
+            "otazka": "Jak objednat trička pro celou třídu s různými velikostmi?",
+            "odpoved": "<p>Pošlete poptávku s rozpisem velikostí, případně se seznamem jmen na záda. Ozveme se vám s cenou a návrhem.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "otazka_1",
+        "otazka_2",
+        "otazka_3",
+        "otazka_4",
+        "otazka_5"
+      ]
+    }
+  },
+  "order": [
+    "hero_navrh",
+    "trust_bar",
+    "featured_collection",
+    "segments",
+    "seasonal",
+    "process",
+    "story",
+    "faq"
+  ]
+}

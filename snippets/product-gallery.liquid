@@ -1,0 +1,21 @@
+{%- comment -%} Galerie produktu (média ze Shopify). Parametry: product, dlazdice, ilustrace (náhradní obrázek z motivu, když produkt nemá fotku) {%- endcomment -%}
+{%- assign prvni = product.selected_or_first_available_variant.featured_media | default: product.featured_media -%}
+<div class="galerie" data-galerie>
+  <div class="galerie__hlavni dlazdice--{{ dlazdice }}{% if prvni == blank and ilustrace != blank %} galerie__hlavni--ilustrace{% endif %}">
+    {%- if prvni == blank and ilustrace != blank -%}
+      <img src="{{ 'ilustrace-' | append: ilustrace | append: '.svg' | asset_url }}" alt="" width="600" height="600">
+    {%- endif -%}
+    {%- if prvni -%}
+      {{ prvni.preview_image | image_url: width: 1200 | image_tag: widths: '600, 900, 1200', sizes: '(min-width: 1020px) 55vw, 100vw', alt: prvni.alt | default: product.title, data-galerie-hlavni: '', fetchpriority: 'high' }}
+    {%- endif -%}
+  </div>
+  {%- if product.media.size > 1 -%}
+    <div class="galerie__nahledy" aria-label="{{ 'products.gallery' | t }}">
+      {%- for media in product.media -%}
+        <button type="button" data-media="{{ media.id }}" data-velky="{{ media.preview_image | image_url: width: 1200 }}" aria-current="{% if media.id == prvni.id %}true{% else %}false{% endif %}" aria-label="{{ media.alt | default: product.title | escape }}">
+          {{ media.preview_image | image_url: width: 160 | image_tag: alt: '', loading: 'lazy' }}
+        </button>
+      {%- endfor -%}
+    </div>
+  {%- endif -%}
+</div>

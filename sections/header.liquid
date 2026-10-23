@@ -1,0 +1,49 @@
+<header class="hlavicka" data-hlavicka>
+  <div class="obal hlavicka__obal">
+    <a class="logo" href="{{ routes.root_url }}" aria-label="{{ shop.name | escape }}">
+      {%- if settings.logo != blank -%}
+        {%- assign sirka_loga = settings.logo_vyska | times: settings.logo.aspect_ratio | round -%}
+        {{ settings.logo | image_url: height: 160 | image_tag: height: settings.logo_vyska, width: sirka_loga, alt: shop.name, style: 'height: var(--logo-vyska); width: auto' }}
+      {%- else -%}
+        <img src="{{ 'logo.svg' | asset_url }}" alt="{{ shop.name | escape }}" width="160" height="40" style="height: var(--logo-vyska); width: auto">
+      {%- endif -%}
+      {%- if section.settings.podtitul != blank -%}<span>{{ section.settings.podtitul | newline_to_br }}</span>{%- endif -%}
+    </a>
+    <nav class="menu" id="menu" aria-label="{{ 'general.menu' | t }}">
+      {%- for link in section.settings.menu.links -%}
+        <a href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title | escape }}</a>
+      {%- endfor -%}
+    </nav>
+    <div class="hlavicka__akce">
+      {%- if section.settings.cta_text != blank -%}
+        <a class="tl tl--magenta tl--male hlavicka__cta" href="{{ section.settings.cta_odkaz | default: routes.all_products_collection_url }}">{{ section.settings.cta_text | escape }}</a>
+      {%- endif -%}
+      {%- if section.settings.hledani -%}
+        <a class="hlavicka__ikona" href="{{ routes.search_url }}" aria-label="{{ 'general.search' | t }}"><svg aria-hidden="true" width="22" height="22"><use href="#i-hledat"/></svg></a>
+      {%- endif -%}
+      {%- if shop.customer_accounts_enabled and section.settings.ucet -%}
+        <a class="hlavicka__ikona" href="{{ routes.account_url }}" aria-label="{{ 'general.account' | t }}"><svg aria-hidden="true" width="22" height="22"><use href="#i-ucet"/></svg></a>
+      {%- endif -%}
+      <a href="{{ routes.cart_url }}" class="kosik-tlacitko" data-otevrit-kosik aria-label="{{ 'cart.open' | t }}">
+        <svg aria-hidden="true"><use href="#i-kosik"/></svg><span class="kosik-text">{{ 'cart.title' | t }}</span>
+        <span class="pocet" data-pocet{% if cart.item_count == 0 %} hidden{% endif %}>{{ cart.item_count }}</span>
+      </a>
+      <button type="button" class="menu-tlacitko" aria-expanded="false" aria-controls="menu">{{ 'general.menu' | t }}</button>
+    </div>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "Hlavička",
+  "class": "shopify-section-hlavicka",
+  "settings": [
+    {"type": "textarea", "id": "podtitul", "label": "Text vedle loga", "default": "Tiskárna ve Všechovicích\nod roku 2004"},
+    {"type": "link_list", "id": "menu", "label": "Menu", "default": "main-menu", "info": "Upravíte v Obchod > Navigace."},
+    {"type": "text", "id": "cta_text", "label": "Tlačítko vpravo", "default": "Navrhnout tričko"},
+    {"type": "url", "id": "cta_odkaz", "label": "Odkaz tlačítka", "info": "Nejlépe produkt s konfigurátorem."},
+    {"type": "checkbox", "id": "hledani", "label": "Ukázat hledání", "default": false},
+    {"type": "checkbox", "id": "ucet", "label": "Ukázat zákaznický účet", "default": false}
+  ]
+}
+{% endschema %}

@@ -1,0 +1,17 @@
+{%- comment -%} Stránka s poptávkou nebo kontaktem (šablona page.poptavka / page.contact). {%- endcomment -%}
+<div class="obal obal--uzky">
+  <div class="stranka-hlava">
+    <h1>{{ page.title | escape }}</h1>
+    {%- if page.content != blank -%}<div class="rte">{{ page.content }}</div>{%- endif -%}
+  </div>
+  <div class="box">
+    {%- render 'poptavka-form', produkt_nazev: section.settings.produkt, id: 'poptavka-stranka' -%}
+  </div>
+  <ul class="vyhody">
+    <li><svg aria-hidden="true"><use href="#i-spendlik"/></svg><span>{{ settings.adresa | escape }}</span></li>
+    <li><svg aria-hidden="true"><use href="#i-tisk"/></svg><span><a href="tel:{{ settings.telefon | remove: ' ' }}">{{ settings.telefon }}</a>, <a href="tel:{{ settings.mobil | remove: ' ' }}">{{ settings.mobil }}</a>, <a href="mailto:{{ settings.email }}">{{ settings.email }}</a></span></li>
+  </ul>
+</div>
+{% schema %}
+{"name": "Poptávka / kontakt", "settings": [{"type": "text", "id": "produkt", "label": "Předmět ve formuláři", "default": "Obecná poptávka"}]}
+{% endschema %}

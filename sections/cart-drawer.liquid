@@ -1,0 +1,64 @@
+{%- comment -%}
+  Panel košíku. Obsah se po každé změně překreslí přes Section Rendering API (Shopify vrátí tuto sekci znovu).
+{%- endcomment -%}
+<dialog class="panel" id="kosik-panel" aria-labelledby="kosik-nadpis" data-kosik-panel>
+  <div class="panel__hlava">
+    <h2 id="kosik-nadpis">{{ 'cart.title' | t }}</h2>
+    <button type="button" class="zavrit" data-zavrit aria-label="{{ 'general.close' | t }}"></button>
+  </div>
+  <div class="panel__vnitrek" data-kosik-vnitrek>
+    <div class="panel__telo">
+      {%- if cart.item_count == 0 -%}
+        <div class="kosik-prazdny">
+          <p>{{ 'cart.empty' | t }}</p>
+          <a class="tl tl--magenta" href="{{ section.settings.prazdny_odkaz | default: routes.all_products_collection_url }}">{{ 'cart.empty_cta' | t }}</a>
+        </div>
+      {%- else -%}
+        <ul class="kosik-seznam">
+          {%- for item in cart.items -%}
+            <li class="kosik-polozka" data-radek="{{ forloop.index }}" data-klic="{{ item.key }}">
+              <div class="kosik-polozka__nahled" data-navrh="{{ item.properties['_navrh'] | escape }}">{% render 'cart-line-image', item: item, sirka: 200 %}</div>
+              <div class="kosik-polozka__info">
+                <strong><a href="{{ item.url }}">{{ item.product.title | escape }}</a></strong>
+                {%- unless item.product.has_only_default_variant -%}<span>{{ item.variant.title | escape }}</span>{%- endunless -%}
+                {% render 'cart-line-properties', item: item %}
+                <div class="kosik-polozka__radek">
+                  <div class="pocitadlo pocitadlo--male">
+                    <button type="button" data-ks="-1" aria-label="{{ 'products.decrease' | t }}">−</button>
+                    <input type="number" min="0" max="999" value="{{ item.quantity }}" aria-label="{{ 'products.quantity' | t }}" data-ks-pole>
+                    <button type="button" data-ks="1" aria-label="{{ 'products.increase' | t }}">+</button>
+                  </div>
+                  <span class="kosik-polozka__cena">{{ item.final_line_price | money }}</span>
+                </div>
+                <button type="button" class="odkaz" data-odebrat>{{ 'cart.remove' | t }}</button>
+              </div>
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+    </div>
+    {%- if cart.item_count > 0 -%}
+      <div class="panel__pata">
+        {%- for discount in cart.cart_level_discount_applications -%}
+          <div class="souhrn-radek"><span>{{ 'cart.discount' | t }}: {{ discount.title | escape }}</span><span>−{{ discount.total_allocated_amount | money }}</span></div>
+        {%- endfor -%}
+        <div class="souhrn-radek"><span>{{ 'cart.subtotal' | t }}</span><strong>{{ cart.total_price | money }}</strong></div>
+        <div class="dodani"><svg aria-hidden="true"><use href="#i-kalendar"/></svg><span>{{ 'products.delivery_prefix' | t }} <strong data-termin>{{ settings.dodani_text }}</strong></span></div>
+        <form action="{{ routes.cart_url }}" method="post">
+          <button type="submit" name="checkout" class="tl tl--magenta tl--velke tl--plna">{{ 'cart.checkout' | t }}</button>
+        </form>
+        <p class="tlumene mala" style="text-align:center">{{ 'cart.shipping_note' | t }}</p>
+        <a class="odkaz" href="{{ routes.cart_url }}" style="justify-self:center">{{ 'cart.update' | t }}</a>
+      </div>
+    {%- endif -%}
+  </div>
+</dialog>
+
+{% schema %}
+{
+  "name": "Panel košíku",
+  "settings": [
+    {"type": "url", "id": "prazdny_odkaz", "label": "Kam vede tlačítko u prázdného košíku", "info": "Nejlépe produkt s konfigurátorem."}
+  ]
+}
+{% endschema %}

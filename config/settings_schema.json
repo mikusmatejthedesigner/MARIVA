@@ -1,0 +1,89 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "MARIVA",
+    "theme_version": "1.0.0",
+    "theme_author": "Tiskárna MARIVA",
+    "theme_documentation_url": "https://www.tiskarnamariva.cz",
+    "theme_support_url": "https://www.tiskarnamariva.cz"
+  },
+  {
+    "name": "Barvy",
+    "settings": [
+      {"type": "header", "content": "Značka"},
+      {"type": "color", "id": "color_magenta", "label": "Hlavní barva (magenta)", "default": "#E4007C"},
+      {"type": "color", "id": "color_magenta_tmava", "label": "Hlavní barva, tmavší (najetí myší)", "default": "#B8005F"},
+      {"type": "color", "id": "color_magenta_svetla", "label": "Hlavní barva, světlá (dlaždice)", "default": "#FCE3EF"},
+      {"type": "color", "id": "color_zluta", "label": "Zvýraznění (žlutá)", "default": "#FFD200"},
+      {"type": "color", "id": "color_zluta_svetla", "label": "Zvýraznění, světlé", "default": "#FFF1B3"},
+      {"type": "color", "id": "color_azur", "label": "Doplňková (azur)", "default": "#00A3E0"},
+      {"type": "color", "id": "color_azur_svetla", "label": "Doplňková, světlá", "default": "#D9F0FA"},
+      {"type": "header", "content": "Text a podklad"},
+      {"type": "color", "id": "color_inkoust", "label": "Text a tmavé plochy", "default": "#1B1424"},
+      {"type": "color", "id": "color_text_2", "label": "Méně výrazný text", "default": "#4D4556"},
+      {"type": "color", "id": "color_text_3", "label": "Popisky", "default": "#7D7486"},
+      {"type": "color", "id": "color_papir", "label": "Podklad stránky", "default": "#FBF6EE"},
+      {"type": "color", "id": "color_papir_2", "label": "Podklad sekcí", "default": "#F3EBDD"},
+      {"type": "color", "id": "color_cara", "label": "Čáry", "default": "#E8DFD0"},
+      {"type": "color", "id": "color_cara_2", "label": "Čáry, výraznější", "default": "#D6CBB8"}
+    ]
+  },
+  {
+    "name": "Logo a ikona",
+    "settings": [
+      {"type": "image_picker", "id": "logo", "label": "Logo", "info": "Když logo nevyberete, použije se logo MARIVA (magentový štítek) z motivu."},
+      {"type": "range", "id": "logo_vyska", "label": "Výška loga v hlavičce", "min": 28, "max": 64, "step": 2, "unit": "px", "default": 40},
+      {"type": "image_picker", "id": "favicon", "label": "Ikona v záložce prohlížeče", "info": "Čtvercový obrázek 32 × 32 px. Bez něj se použije ikona MARIVA."}
+    ]
+  },
+  {
+    "name": "Kontakt a firma",
+    "settings": [
+      {"type": "text", "id": "telefon", "label": "Telefon", "default": "581 622 009"},
+      {"type": "text", "id": "mobil", "label": "Mobil", "default": "776 336 533"},
+      {"type": "text", "id": "email", "label": "E-mail", "default": "info@tiskarnamariva.cz"},
+      {"type": "text", "id": "adresa", "label": "Adresa provozovny", "default": "Všechovice 212, 753 53 Všechovice"},
+      {"type": "url", "id": "mapa", "label": "Odkaz na mapu"},
+      {"type": "text", "id": "rok_zalozeni", "label": "Tiskneme od roku", "default": "2004"},
+      {"type": "textarea", "id": "provozovatel", "label": "Provozovatel (patička)", "default": "Provozovatel: Marta Buksová, IČO 48904163, Libosváry 49, 768 61 Loukov"}
+    ]
+  },
+  {
+    "name": "Dodání",
+    "settings": [
+      {"type": "paragraph", "content": "Z těchto hodnot web počítá termín „hotovo mezi … a …“ od dnešního dne (v liště, košíku a u produktů)."},
+      {"type": "range", "id": "dodani_od", "label": "Nejdříve za (dní)", "min": 1, "max": 60, "step": 1, "default": 21},
+      {"type": "range", "id": "dodani_do", "label": "Nejpozději za (dní)", "min": 1, "max": 90, "step": 1, "default": 35},
+      {"type": "text", "id": "dodani_text", "label": "Krátký text o dodání", "default": "Hotovo do 3 až 5 týdnů"},
+      {"type": "text", "id": "platba_text", "label": "Krátký text o platbě", "default": "Převodem, dobírkou nebo hotově"}
+    ]
+  },
+  {
+    "name": "Konfigurátor",
+    "settings": [
+      {"type": "paragraph", "content": "Produkt s konfigurátorem označte štítkem (tag) „konfigurator“. Jeho varianty musí mít možnosti Střih, Barva a Velikost (názvy jdou změnit níže)."},
+      {"type": "text", "id": "moznost_strih", "label": "Název možnosti pro střih", "default": "Střih"},
+      {"type": "text", "id": "moznost_barva", "label": "Název možnosti pro barvu", "default": "Barva"},
+      {"type": "text", "id": "moznost_velikost", "label": "Název možnosti pro velikost", "default": "Velikost"},
+      {"type": "textarea", "id": "barvy_hex", "label": "Barvy látky (název: kód barvy)", "default": "Bílá: #FFFFFF\nČerná: #1C1C1E\nŠedý melír: #B8B8B4\nNámořní modrá: #1F2840\nKrálovská modrá: #2A4C9C\nČervená: #B1232C\nLahvově zelená: #1E4A38\nŽlutá: #EFC23A", "info": "Jedna barva na řádek. Název musí přesně odpovídat hodnotě varianty v Shopify."},
+      {"type": "header", "content": "Nahrávání obrázků (Uploadcare)"},
+      {"type": "paragraph", "content": "Shopify neumí přiložit soubor k položce v košíku. Obrázek zákazníka se proto nahraje na Uploadcare a do objednávky přijde odkaz. Bez klíče nese objednávka jen popis návrhu."},
+      {"type": "text", "id": "uploadcare_klic", "label": "Veřejný klíč Uploadcare (public key)"},
+      {"type": "text", "id": "uploadcare_cdn", "label": "Adresa CDN Uploadcare", "default": "https://ucarecdn.com", "info": "Najdete ji v Uploadcare u projektu (Delivery). Starší projekty používají https://ucarecdn.com."}
+    ]
+  },
+  {
+    "name": "Košík",
+    "settings": [
+      {"type": "select", "id": "kosik_typ", "label": "Po přidání do košíku", "default": "panel", "options": [{"value": "panel", "label": "Otevřít panel košíku"}, {"value": "stranka", "label": "Přejít na stránku košíku"}]},
+      {"type": "checkbox", "id": "kosik_poznamka", "label": "Poznámka k objednávce v košíku", "default": true}
+    ]
+  },
+  {
+    "name": "Sociální sítě",
+    "settings": [
+      {"type": "url", "id": "facebook", "label": "Facebook"},
+      {"type": "url", "id": "instagram", "label": "Instagram"}
+    ]
+  }
+]

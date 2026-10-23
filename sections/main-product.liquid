@@ -1,0 +1,113 @@
+{%- comment -%}
+  Detail produktu. Štítek (tag) „poptavka“ = místo košíku poptávkový formulář. Ostatní produkty: varianty, počet, košík, rychlá platba.
+{%- endcomment -%}
+{%- liquid
+  assign poptavka = false
+  assign dlazdice = 'papir'
+  assign stitek = ''
+  assign ilustrace = ''
+  for tag in product.tags
+    assign tag_male = tag | downcase
+    if tag_male == 'poptavka'
+      assign poptavka = true
+    endif
+    if tag_male == 'barva-magenta' or tag_male == 'barva-zluta' or tag_male == 'barva-azur'
+      assign dlazdice = tag_male | remove_first: 'barva-'
+    endif
+    if tag_male contains 'ilustrace:'
+      assign ilustrace = tag_male | split: ':' | last
+    endif
+    if tag_male contains 'stitek:'
+      assign stitek = tag | split: ':' | last
+    endif
+  endfor
+  assign varianta = product.selected_or_first_available_variant
+-%}
+<div class="obal">
+  <div class="stranka-hlava">
+    <ol class="drobky" aria-label="{{ 'general.breadcrumbs' | t }}">
+      <li><a href="{{ routes.root_url }}">{{ 'general.home' | t }}</a></li>
+      {%- if collection -%}<li><a href="{{ collection.url }}">{{ collection.title | escape }}</a></li>{%- endif -%}
+      <li>{{ product.title | escape }}</li>
+    </ol>
+  </div>
+  <div class="detail" data-produkt>
+    {%- render 'product-gallery', product: product, dlazdice: dlazdice, ilustrace: ilustrace -%}
+    <div>
+      {%- if stitek != blank -%}<span class="stitek stitek--zluta">{{ stitek | escape }}</span>{%- endif -%}
+      <h1>{{ product.title | escape }}</h1>
+      {%- if product.metafields.custom.perex != blank -%}<p class="detail__perex">{{ product.metafields.custom.perex.value | escape }}</p>{%- endif -%}
+      <div class="detail__cena">{% render 'price', product: product, variant: varianta, velikost: 'detail' %}</div>
+      {%- assign hodi_se = product.metafields.custom.hodi_se.value -%}
+      {%- if hodi_se != blank -%}
+        <ul class="cipy" aria-label="{{ 'products.suits' | t }}">{%- for h in hodi_se -%}<li>{{ h | escape }}</li>{%- endfor -%}</ul>
+      {%- endif -%}
+
+      {%- if poptavka -%}
+        <div class="box" id="poptavka">
+          <h2>{{ 'inquiry.title' | t }}</h2>
+          <p>{{ 'inquiry.intro' | t }}</p>
+          {%- render 'poptavka-form', produkt_nazev: product.title, id: 'poptavka-produkt' -%}
+          {%- render 'vyhody' -%}
+        </div>
+      {%- else -%}
+        <div class="box">
+          {%- form 'product', product, class: 'formular', data-produkt-form: '', novalidate: 'novalidate' -%}
+            <input type="hidden" name="id" value="{{ varianta.id }}" data-varianta>
+            {%- unless product.has_only_default_variant -%}
+              {%- for option in product.options_with_values -%}
+                <fieldset class="volba">
+                  <legend class="volba__nadpis">{{ option.name | escape }} <span data-moznost-hodnota>{{ option.selected_value | escape }}</span></legend>
+                  <div class="velikosti">
+                    {%- for value in option.values -%}
+                      <label class="velikost"><input type="radio" name="moznost-{{ forloop.parentloop.index0 }}" value="{{ value | escape }}"{% if option.selected_value == value %} checked{% endif %} data-moznost="{{ forloop.parentloop.index0 }}"><span>{{ value | escape }}</span></label>
+                    {%- endfor -%}
+                  </div>
+                </fieldset>
+              {%- endfor -%}
+            {%- endunless -%}
+            <div class="volba">
+              <span class="volba__nadpis">{{ 'products.quantity' | t }}</span>
+              <div class="pocitadlo">
+                <button type="button" data-krok="-1" aria-label="{{ 'products.decrease' | t }}">−</button>
+                <input type="number" name="quantity" min="1" max="999" value="1" inputmode="numeric" aria-label="{{ 'products.quantity' | t }}">
+                <button type="button" data-krok="1" aria-label="{{ 'products.increase' | t }}">+</button>
+              </div>
+            </div>
+            <p class="chyba" data-chyba role="alert" hidden></p>
+            <button type="submit" name="add" class="tl tl--magenta tl--velke" data-pridat{% unless varianta.available %} disabled{% endunless %}>
+              {%- if varianta.available %}{{ 'products.add_to_cart' | t }}{% else %}{{ 'price.sold_out' | t }}{% endif -%}
+            </button>
+            {%- if section.settings.rychla_platba -%}{{ form | payment_button }}{%- endif -%}
+          {%- endform -%}
+          {%- render 'vyhody' -%}
+        </div>
+      {%- endif -%}
+
+      {%- for block in section.blocks -%}
+        <div {{ block.shopify_attributes }}>{%- render block -%}</div>
+      {%- endfor -%}
+
+      {%- if product.description != blank -%}
+        <div class="box">
+          <h2>{{ 'products.about' | t }}</h2>
+          <div class="rte">{{ product.description }}</div>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+<script type="application/json" data-varianty>{{ product.variants | json }}</script>
+<script type="application/ld+json">{{ product | structured_data }}</script>
+<script src="{{ 'produkt.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "Detail produktu",
+  "tag": "section",
+  "settings": [
+    {"type": "checkbox", "id": "rychla_platba", "label": "Tlačítka rychlé platby (Apple Pay, Google Pay…)", "default": true}
+  ],
+  "blocks": [{"type": "@app"}]
+}
+{% endschema %}

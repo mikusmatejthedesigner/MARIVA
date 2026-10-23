@@ -1,0 +1,137 @@
+{
+  "general": {
+    "skip_to_content": "Přeskočit na obsah",
+    "menu": "Menu",
+    "close": "Zavřít",
+    "home": "Úvod",
+    "breadcrumbs": "Kde jste",
+    "all_products": "Všechny produkty",
+    "search": "Hledat",
+    "account": "Účet",
+    "call": "Zavolat {{ phone }}",
+    "write_inquiry": "Napsat poptávku",
+    "on_map": "Ukázat na mapě",
+    "pagination": {
+      "label": "Stránkování",
+      "previous": "Předchozí",
+      "next": "Další"
+    }
+  },
+  "price": {
+    "from": "od {{ price }}",
+    "with_print": "s potiskem, vč. DPH",
+    "per_piece": "za kus s potiskem, vč. DPH",
+    "on_request": "Na poptávku",
+    "on_request_short": "pošleme vám nabídku",
+    "on_request_long": "podle počtu kusů a potisku, nabídku vám pošleme",
+    "sold_out": "Vyprodáno",
+    "regular": "Původní cena"
+  },
+  "products": {
+    "design": "Navrhnout",
+    "inquire": "Poptat",
+    "add_to_cart": "Přidat do košíku",
+    "unavailable": "Tahle kombinace není k dispozici",
+    "quantity": "Počet kusů",
+    "decrease": "Ubrat kus",
+    "increase": "Přidat kus",
+    "delivery_prefix": "Při objednávce dnes hotovo",
+    "try_color": "Vyzkoušet barvu",
+    "recommendations": "Mohlo by se hodit",
+    "about": "O produktu",
+    "suits": "Hodí se pro",
+    "gallery": "Fotky produktu",
+    "no_products": "V této kolekci zatím nejsou žádné produkty.",
+    "count": {
+      "one": "{{ count }} produkt",
+      "few": "{{ count }} produkty",
+      "many": "{{ count }} produktu",
+      "other": "{{ count }} produktů"
+    }
+  },
+  "collections": {
+    "filter": "Filtrovat",
+    "sort": "Řadit",
+    "apply": "Použít",
+    "clear": "Zrušit filtry",
+    "price_from": "Od",
+    "price_to": "Do",
+    "all": "Vše"
+  },
+  "cart": {
+    "title": "Košík",
+    "open": "Otevřít košík",
+    "empty": "Košík je zatím prázdný. Navrhněte si tričko, za pár minut ho tu máte.",
+    "empty_cta": "Navrhnout tričko",
+    "remove": "Odebrat",
+    "subtotal": "Celkem s DPH",
+    "checkout": "K pokladně",
+    "continue": "Pokračovat v nákupu",
+    "note": "Poznámka k objednávce",
+    "note_placeholder": "Např. jména na záda, rozpis velikostí, termín akce…",
+    "shipping_note": "Dopravu a platbu vyberete v pokladně.",
+    "update": "Aktualizovat košík",
+    "discount": "Sleva"
+  },
+  "inquiry": {
+    "title": "Nezávazná poptávka",
+    "intro": "Napište nám, co potřebujete. Pošleme vám cenu a návrh, nic tím neobjednáváte.",
+    "product": "Produkt",
+    "quantity": "Počet kusů",
+    "deadline": "Kdy potřebujete mít hotovo",
+    "body": "Co má být na potisku",
+    "body_placeholder": "Text nebo logo, barvy, velikosti, rozpis jmen…",
+    "files": "Motiv, logo nebo seznam jmen",
+    "files_email": "Soubory nám můžete poslat i e-mailem na {{ email }}.",
+    "name": "Jméno a příjmení",
+    "organization": "Škola, spolek nebo firma",
+    "email": "E-mail",
+    "phone": "Telefon",
+    "optional": "nepovinné",
+    "consent": "Souhlasím se zpracováním kontaktních údajů pro vyřízení poptávky.",
+    "submit": "Odeslat nezávaznou poptávku",
+    "success_title": "Děkujeme, poptávka je u nás",
+    "success": "Ozveme se vám s cenou a návrhem na e-mail nebo telefon, který jste uvedli."
+  },
+  "configurator": {
+    "badge": "Navrhnete online",
+    "cut": "Střih",
+    "color": "Barva",
+    "print": "Potisk",
+    "size": "Velikost",
+    "upload_image": "Nahrát obrázek",
+    "add_text": "Přidat nápis",
+    "upload_hint": "JPG, PNG nebo WebP, ideálně alespoň 2000 px na šířku. Obrázek můžete na náhled i přetáhnout.",
+    "area": "Oblast potisku",
+    "show_area": "Ukázat oblast potisku",
+    "empty": "Nahrajte obrázek nebo přidejte nápis",
+    "save": "Uložit návrh",
+    "inquire_more": "Poptat větší množství",
+    "more_hint": "Objednáváte pro celou partu? Pošlete poptávku s rozpisem velikostí a my připravíme nabídku.",
+    "choose_size": "Vyberte prosím velikost.",
+    "total": "Celkem s DPH",
+    "colors_note": "Barvy na obrazovce se mohou od skutečnosti mírně lišit.",
+    "canvas_label": "Náhled produktu s potiskem. Potisk posunete tažením, velikost změníte tažením za roh, šipkami posunete vybraný potisk."
+  },
+  "search": {
+    "title": "Hledání",
+    "placeholder": "Co hledáte?",
+    "results": "Výsledky pro „{{ terms }}“",
+    "none": "Nic jsme nenašli. Zkuste jiné slovo, nebo nám napište."
+  },
+  "not_found": {
+    "title": "Stránka nenalezena",
+    "text": "Tahle stránka neexistuje nebo se přesunula.",
+    "cta": "Zpět na úvod"
+  },
+  "blogs": {
+    "read_more": "Číst dál",
+    "back": "Zpět na blog"
+  },
+  "password": {
+    "title": "Brzy otevíráme",
+    "label": "Heslo",
+    "enter": "Vstoupit",
+    "admin": "Jste majitel obchodu? Přihlaste se"
+  }
+}

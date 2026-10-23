@@ -1,0 +1,17 @@
+{%- comment -%} Místo pro bloky aplikací (např. recenze, nahrávání souborů). {%- endcomment -%}
+<div class="obal{% if section.settings.odsazeni %} sekce{% endif %}">
+  {%- for block in section.blocks -%}
+    {% render block %}
+  {%- endfor -%}
+</div>
+
+{% schema %}
+{
+  "name": "Aplikace",
+  "settings": [
+    {"type": "checkbox", "id": "odsazeni", "label": "Odsazení nahoře a dole", "default": true}
+  ],
+  "blocks": [{"type": "@app"}],
+  "presets": [{"name": "Aplikace"}]
+}
+{% endschema %}

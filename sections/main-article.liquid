@@ -1,0 +1,13 @@
+<article class="obal obal--uzky">
+  <div class="stranka-hlava">
+    <a class="odkaz" href="{{ blog.url }}">{{ 'blogs.back' | t }}</a>
+    <h1>{{ article.title | escape }}</h1>
+    <p>{{ article.published_at | date: format: 'date' }}</p>
+  </div>
+  {%- if article.image -%}{{ article.image | image_url: width: 1400 | image_tag: class: 'clanek__obrazek', widths: '700, 1050, 1400', alt: article.title }}{%- endif -%}
+  <div class="rte">{{ article.content }}</div>
+</article>
+<script type="application/ld+json">{{ article | structured_data }}</script>
+{% schema %}
+{"name": "Článek"}
+{% endschema %}

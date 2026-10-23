@@ -1,0 +1,29 @@
+{%- comment -%}
+  Cena produktu. Produkty se štítkem (tag) „poptavka“ ukazují „Na poptávku“.
+  Parametry: product (povinné), variant (volitelné), velikost: 'karta' | 'detail'
+{%- endcomment -%}
+{%- liquid
+  assign target = variant | default: product.selected_or_first_available_variant
+  assign poptavka = false
+  if product.tags contains 'poptavka'
+    assign poptavka = true
+  endif
+-%}
+{%- if poptavka -%}
+  {%- if velikost == 'detail' -%}
+    <strong>{{ 'price.on_request' | t }}</strong><span>{{ 'price.on_request_long' | t }}</span>
+  {%- else -%}
+    <strong>{{ 'price.on_request' | t }}</strong><small>{{ 'price.on_request_short' | t }}</small>
+  {%- endif -%}
+{%- elsif velikost == 'detail' -%}
+  <strong data-cena>{{ target.price | money_without_trailing_zeros }}</strong>
+  {%- if target.compare_at_price > target.price -%}<s data-cena-puvodni>{{ target.compare_at_price | money_without_trailing_zeros }}</s>{%- endif -%}
+  <span>{{ 'price.per_piece' | t }}</span>
+{%- else -%}
+  {%- if product.price_varies -%}
+    <strong>{{ 'price.from' | t: price: product.price_min | money_without_trailing_zeros }}</strong>
+  {%- else -%}
+    <strong>{{ product.price | money_without_trailing_zeros }}</strong>
+  {%- endif -%}
+  <small>{% if product.available %}{{ 'price.with_print' | t }}{% else %}{{ 'price.sold_out' | t }}{% endif %}</small>
+{%- endif -%}

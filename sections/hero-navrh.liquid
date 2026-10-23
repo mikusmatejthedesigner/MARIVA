@@ -1,0 +1,95 @@
+{%- comment -%}
+  Úvod: zákazník napíše nápis a hned ho vidí na tričku (živé vykreslení, stejné jádro jako konfigurátor).
+  Tlačítko vede na produkt s konfigurátorem (?napis=…&barva=…).
+{%- endcomment -%}
+{%- liquid
+  assign produkt = section.settings.produkt
+  assign odkaz = routes.all_products_collection_url
+  if produkt != blank
+    assign odkaz = produkt.url
+  endif
+-%}
+{% render 'konfigurator-profily' %}
+<section class="uvod" data-uvod>
+  <div class="obal">
+    <div class="uvod__panel na-magente">
+      <div class="uvod__text">
+        <h1>{{ section.settings.nadpis | escape }}{% if section.settings.zvyrazneni != blank %} <span class="tisk">{{ section.settings.zvyrazneni | escape }}</span>{% endif %}</h1>
+        {%- if section.settings.text != blank -%}<p class="uvod__perex">{{ section.settings.text | escape }}</p>{%- endif -%}
+        <form class="navrh" action="{{ odkaz }}" method="get" data-uvod-navrh>
+          <label for="uvod-napis-{{ section.id }}">{{ section.settings.popisek | escape }}</label>
+          <div class="navrh__pole">
+            <input id="uvod-napis-{{ section.id }}" name="napis" maxlength="32" placeholder="{{ section.settings.placeholder | escape }}" autocomplete="off" spellcheck="false">
+            <button class="tl tl--zluta" type="submit">{{ section.settings.tlacitko | escape }} <svg aria-hidden="true"><use href="#i-sipka"/></svg></button>
+          </div>
+          {%- if section.blocks.size > 0 -%}
+            <div class="navrh__tipy">
+              {%- for block in section.blocks -%}
+                <button type="button" data-tip="{{ block.settings.text | escape }}" {{ block.shopify_attributes }}>{{ block.settings.popisek | escape }}</button>
+              {%- endfor -%}
+            </div>
+          {%- endif -%}
+        </form>
+      </div>
+      <div class="uvod__obraz">
+        <canvas data-uvod-platno data-profil="{{ section.settings.profil | escape }}" data-vychozi="{{ section.settings.vychozi_napis | escape }}" role="img" aria-label="{{ section.settings.popisek | escape }}"></canvas>
+        {%- if section.settings.cenovka -%}
+          <div class="uvod__cenovka"><div class="cenovka"><div>
+            <small>{{ section.settings.cenovka_nahore | escape }}</small>
+            <strong>{%- if produkt != blank -%}{{ 'price.from' | t: price: produkt.price_min | money_without_trailing_zeros }}{%- else -%}{{ section.settings.cenovka_cena | escape }}{%- endif -%}</strong>
+            <small>{{ section.settings.cenovka_dole | escape }}</small>
+          </div></div></div>
+        {%- endif -%}
+        <fieldset class="uvod__barvy barvy" data-uvod-barvy data-barvy="{{ section.settings.barvy | escape }}"><legend class="skryte">{{ 'configurator.color' | t }}</legend></fieldset>
+      </div>
+    </div>
+    <div class="navrhy-pruh" data-moje-navrhy data-odkaz="{{ odkaz }}" hidden></div>
+  </div>
+</section>
+<script src="{{ 'potisk.js' | asset_url }}" defer></script>
+<script src="{{ 'uvod.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "Úvod s návrhem trička",
+  "settings": [
+    {"type": "text", "id": "nadpis", "label": "Nadpis", "default": "Trička pro celou"},
+    {"type": "text", "id": "zvyrazneni", "label": "Zvýrazněné slovo (posunutý tisk)", "default": "partu."},
+    {"type": "textarea", "id": "text", "label": "Text", "default": "Pro třídu, tým, firmu i rodinu. Napište, co má být na tričku, a hned uvidíte, jak bude vypadat. Vytiskneme ho u nás ve Všechovicích."},
+    {"type": "product", "id": "produkt", "label": "Produkt s konfigurátorem", "info": "Sem vede tlačítko a z něj se bere cena „od“."},
+    {"type": "text", "id": "popisek", "label": "Popisek pole", "default": "Co má být na tričku?"},
+    {"type": "text", "id": "placeholder", "label": "Nápověda v poli", "default": "Třeba název třídy nebo týmu"},
+    {"type": "text", "id": "tlacitko", "label": "Tlačítko", "default": "Navrhnout tričko"},
+    {"type": "text", "id": "vychozi_napis", "label": "Nápis na tričku, dokud zákazník nic nenapíše", "default": "MATURANTI 2027"},
+    {"type": "text", "id": "barvy", "label": "Barvy trička k vyzkoušení", "default": "Bílá, Žlutá, Černá, Námořní modrá, Královská modrá", "info": "Názvy oddělené čárkou, stejné jako u variant produktu."},
+    {"type": "text", "id": "profil", "label": "Profil konfigurátoru", "default": "tricko"},
+    {"type": "header", "content": "Cenovka"},
+    {"type": "checkbox", "id": "cenovka", "label": "Ukázat cenovku", "default": true},
+    {"type": "text", "id": "cenovka_nahore", "label": "Text nad cenou", "default": "tričko s potiskem"},
+    {"type": "text", "id": "cenovka_cena", "label": "Cena (když není vybraný produkt)", "default": "od 195 Kč"},
+    {"type": "text", "id": "cenovka_dole", "label": "Text pod cenou", "default": "vč. DPH"}
+  ],
+  "blocks": [
+    {
+      "type": "tip",
+      "name": "Tip na nápis",
+      "settings": [
+        {"type": "text", "id": "popisek", "label": "Popisek", "default": "Maturanti 2027"},
+        {"type": "text", "id": "text", "label": "Nápis", "default": "MATURANTI 2027"}
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "Úvod s návrhem trička",
+      "blocks": [
+        {"type": "tip", "settings": {"popisek": "Maturanti 2027", "text": "MATURANTI 2027"}},
+        {"type": "tip", "settings": {"popisek": "Třída 4.B", "text": "TŘÍDA 4.B"}},
+        {"type": "tip", "settings": {"popisek": "Hasiči", "text": "HASIČI 2026"}},
+        {"type": "tip", "settings": {"popisek": "Dárek pro tátu", "text": "NEJLEPŠÍ TÁTA"}}
+      ]
+    }
+  ]
+}
+{% endschema %}

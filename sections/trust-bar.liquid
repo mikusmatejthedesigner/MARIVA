@@ -1,0 +1,40 @@
+{%- comment -%} Výhody pod úvodem. V textu lze použít {termin}: doplní se termín dodání od dnešního dne. {%- endcomment -%}
+<div class="obal">
+  <ul class="duvera">
+    {%- for block in section.blocks -%}
+      <li {{ block.shopify_attributes }}>
+        <svg aria-hidden="true"><use href="#i-{{ block.settings.ikona }}"/></svg>
+        <span><strong>{{ block.settings.nadpis | escape }}</strong>{{ block.settings.text | escape | replace: '{termin}', '<span data-termin>do 3 až 5 týdnů</span>' }}</span>
+      </li>
+    {%- endfor -%}
+  </ul>
+</div>
+
+{% schema %}
+{
+  "name": "Výhody",
+  "blocks": [
+    {
+      "type": "vyhoda",
+      "name": "Výhoda",
+      "settings": [
+        {"type": "select", "id": "ikona", "label": "Ikona", "default": "tisk", "options": [{"value": "tisk", "label": "Tisk"}, {"value": "kalendar", "label": "Kalendář"}, {"value": "oko", "label": "Náhled"}, {"value": "penize", "label": "Platba"}, {"value": "spendlik", "label": "Místo"}, {"value": "kosik", "label": "Košík"}]},
+        {"type": "text", "id": "nadpis", "label": "Nadpis", "default": "Tiskneme od roku 2004"},
+        {"type": "text", "id": "text", "label": "Text", "default": "Vlastní tiskárna ve Všechovicích", "info": "{termin} se nahradí termínem dodání."}
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    {
+      "name": "Výhody",
+      "blocks": [
+        {"type": "vyhoda", "settings": {"ikona": "tisk", "nadpis": "Tiskneme od roku 2004", "text": "Vlastní tiskárna ve Všechovicích"}},
+        {"type": "vyhoda", "settings": {"ikona": "kalendar", "nadpis": "Hotovo do 3 až 5 týdnů", "text": "Při objednávce dnes {termin}"}},
+        {"type": "vyhoda", "settings": {"ikona": "oko", "nadpis": "Náhled hned", "text": "Uvidíte potisk dřív, než objednáte"}},
+        {"type": "vyhoda", "settings": {"ikona": "penize", "nadpis": "Platba i na dobírku", "text": "Převodem, dobírkou nebo hotově"}}
+      ]
+    }
+  ]
+}
+{% endschema %}

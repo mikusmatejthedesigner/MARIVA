@@ -1,0 +1,7 @@
+{%- comment -%} Náhled položky: náhled návrhu z konfigurátoru (_nahled), jinak obrázek produktu. Parametry: item, sirka {%- endcomment -%}
+{%- assign nahled = item.properties['_nahled'] -%}
+{%- if nahled != blank -%}
+  <img src="{{ nahled | escape }}" alt="" loading="lazy" width="{{ sirka }}" height="{{ sirka }}">
+{%- elsif item.image -%}
+  {{ item.image | image_url: width: sirka | image_tag: alt: item.product.title, loading: 'lazy' }}
+{%- endif -%}

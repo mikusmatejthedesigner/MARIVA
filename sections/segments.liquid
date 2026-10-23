@@ -1,0 +1,63 @@
+<section class="sekce">
+  <div class="obal">
+    <div class="sekce__hlava">
+      <div>
+        <h2>{{ section.settings.nadpis | escape }}</h2>
+        {%- if section.settings.text != blank -%}<p>{{ section.settings.text | escape }}</p>{%- endif -%}
+      </div>
+    </div>
+    <div class="skupiny">
+      {%- for block in section.blocks -%}
+        <a class="skupina skupina--{{ block.settings.barva }}" href="{{ block.settings.odkaz | default: routes.all_products_collection_url }}" {{ block.shopify_attributes }}>
+          <h3>{{ block.settings.nadpis | escape }}</h3>
+          <p>{{ block.settings.text | escape }}</p>
+          <span class="sipka">{{ section.settings.odkaz_text | escape }}</span>
+          <span class="skupina__obrazky" aria-hidden="true">
+            {%- if block.settings.obrazek_1 != blank -%}{{ block.settings.obrazek_1 | image_url: width: 240 | image_tag: alt: '' }}{%- else -%}<img src="{{ 'ilustrace-' | append: block.settings.ilustrace_1 | append: '.svg' | asset_url }}" alt="" width="116" height="116" loading="lazy">{%- endif -%}
+            {%- if block.settings.obrazek_2 != blank -%}{{ block.settings.obrazek_2 | image_url: width: 240 | image_tag: alt: '' }}{%- else -%}<img src="{{ 'ilustrace-' | append: block.settings.ilustrace_2 | append: '.svg' | asset_url }}" alt="" width="116" height="116" loading="lazy">{%- endif -%}
+          </span>
+        </a>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Skupiny zákazníků",
+  "settings": [
+    {"type": "text", "id": "nadpis", "label": "Nadpis", "default": "Pro koho tisknete?"},
+    {"type": "text", "id": "text", "label": "Text", "default": "Vyberte, co chystáte, a ukážeme vám, co se k tomu hodí."},
+    {"type": "text", "id": "odkaz_text", "label": "Text odkazu", "default": "Vybrat"}
+  ],
+  "blocks": [
+    {
+      "type": "skupina",
+      "name": "Skupina",
+      "settings": [
+        {"type": "text", "id": "nadpis", "label": "Nadpis", "default": "Maturanti a absolventi"},
+        {"type": "text", "id": "text", "label": "Text", "default": "Šerpy, stužky, trička a mikiny pro celou třídu."},
+        {"type": "url", "id": "odkaz", "label": "Odkaz", "info": "Nejlépe kolekce pro tuto skupinu."},
+        {"type": "select", "id": "barva", "label": "Barva", "default": "magenta", "options": [{"value": "magenta", "label": "Magenta"}, {"value": "zluta", "label": "Žlutá"}, {"value": "azur", "label": "Azur"}, {"value": "inkoust", "label": "Tmavá"}, {"value": "papir", "label": "Bílá"}]},
+        {"type": "select", "id": "ilustrace_1", "label": "Ilustrace 1", "default": "serpa", "options": [{"value": "serpa", "label": "Šerpa"}, {"value": "stuzky", "label": "Stužky"}, {"value": "ksiltovka", "label": "Kšiltovka"}, {"value": "hrnek", "label": "Hrnek"}, {"value": "polstarek", "label": "Polštářek"}, {"value": "placka", "label": "Placka"}, {"value": "propiska", "label": "Propiska"}, {"value": "vak", "label": "Vak"}, {"value": "rucnik", "label": "Ručník"}, {"value": "vesta", "label": "Vesta"}, {"value": "klicenka", "label": "Klíčenka"}, {"value": "puzzle", "label": "Puzzle"}, {"value": "zastera", "label": "Zástěra"}]},
+        {"type": "image_picker", "id": "obrazek_1", "label": "Vlastní obrázek 1 (místo ilustrace)"},
+        {"type": "select", "id": "ilustrace_2", "label": "Ilustrace 2", "default": "stuzky", "options": [{"value": "serpa", "label": "Šerpa"}, {"value": "stuzky", "label": "Stužky"}, {"value": "ksiltovka", "label": "Kšiltovka"}, {"value": "hrnek", "label": "Hrnek"}, {"value": "polstarek", "label": "Polštářek"}, {"value": "placka", "label": "Placka"}, {"value": "propiska", "label": "Propiska"}, {"value": "vak", "label": "Vak"}, {"value": "rucnik", "label": "Ručník"}, {"value": "vesta", "label": "Vesta"}, {"value": "klicenka", "label": "Klíčenka"}, {"value": "puzzle", "label": "Puzzle"}, {"value": "zastera", "label": "Zástěra"}]},
+        {"type": "image_picker", "id": "obrazek_2", "label": "Vlastní obrázek 2 (místo ilustrace)"}
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "Skupiny zákazníků",
+      "blocks": [
+        {"type": "skupina", "settings": {"nadpis": "Maturanti a absolventi", "text": "Šerpy, stužky, trička a mikiny pro celou třídu.", "barva": "magenta", "ilustrace_1": "serpa", "ilustrace_2": "stuzky"}},
+        {"type": "skupina", "settings": {"nadpis": "Mateřské školy", "text": "Dětská trička, šerpy, vesty a vaky s názvem třídy.", "barva": "zluta", "ilustrace_1": "vesta", "ilustrace_2": "placka"}},
+        {"type": "skupina", "settings": {"nadpis": "Sport a spolky", "text": "Trička, mikiny a vaky pro tým, oddíl nebo hasiče.", "barva": "azur", "ilustrace_1": "vak", "ilustrace_2": "ksiltovka"}},
+        {"type": "skupina", "settings": {"nadpis": "Firmy", "text": "Trička s logem, pracovní oděvy, hrnky a propisky.", "barva": "inkoust", "ilustrace_1": "zastera", "ilustrace_2": "propiska"}},
+        {"type": "skupina", "settings": {"nadpis": "Dárky", "text": "Tričko s fotkou, hrnek, polštářek nebo puzzle.", "barva": "papir", "ilustrace_1": "hrnek", "ilustrace_2": "polstarek"}}
+      ]
+    }
+  ]
+}
+{% endschema %}

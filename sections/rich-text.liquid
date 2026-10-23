@@ -1,0 +1,23 @@
+<section class="sekce{% if section.settings.podklad %} sekce--papir2{% endif %}">
+  <div class="obal">
+    {%- if section.settings.nadpis != blank -%}<h2 style="font-size:clamp(1.75rem,3vw,2.5rem);margin-bottom:16px">{{ section.settings.nadpis | escape }}</h2>{%- endif -%}
+    <div class="richtext">{{ section.settings.text }}</div>
+    {%- if section.settings.tlacitko != blank -%}
+      <p style="margin-top:20px"><a class="tl tl--magenta" href="{{ section.settings.odkaz | default: routes.all_products_collection_url }}">{{ section.settings.tlacitko | escape }}</a></p>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Text",
+  "settings": [
+    {"type": "text", "id": "nadpis", "label": "Nadpis", "default": "Nadpis"},
+    {"type": "richtext", "id": "text", "label": "Text", "default": "<p>Text sekce.</p>"},
+    {"type": "text", "id": "tlacitko", "label": "Tlačítko"},
+    {"type": "url", "id": "odkaz", "label": "Odkaz tlačítka"},
+    {"type": "checkbox", "id": "podklad", "label": "Tmavší podklad sekce", "default": false}
+  ],
+  "presets": [{"name": "Text"}]
+}
+{% endschema %}

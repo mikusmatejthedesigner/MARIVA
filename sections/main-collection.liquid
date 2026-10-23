@@ -1,0 +1,61 @@
+{%- comment -%} Kolekce: filtry Shopify (Search & Discovery), řazení, stránkování. {%- endcomment -%}
+{%- paginate collection.products by section.settings.na_stranku -%}
+<div class="obal">
+  <div class="stranka-hlava">
+    <ol class="drobky" aria-label="{{ 'general.breadcrumbs' | t }}"><li><a href="{{ routes.root_url }}">{{ 'general.home' | t }}</a></li><li>{{ collection.title | escape }}</li></ol>
+    <h1>{{ collection.title | escape }}</h1>
+    {%- if collection.description != blank -%}<div class="rte">{{ collection.description }}</div>{%- endif -%}
+  </div>
+  <form class="filtry-shopify" data-filtry>
+    {%- for filter in collection.filters -%}
+      <details class="filtr">
+        <summary>{{ filter.label | escape }}{% if filter.active_values.size > 0 %} ({{ filter.active_values.size }}){% endif %}</summary>
+        <div class="filtr__obsah">
+          {%- if filter.type == 'price_range' -%}
+            <label class="pole"><span class="pole__popis">{{ 'collections.price_from' | t }}</span><input type="number" name="{{ filter.min_value.param_name }}" value="{{ filter.min_value.value | money_without_currency | remove: ' ' }}" min="0" placeholder="0"></label>
+            <label class="pole"><span class="pole__popis">{{ 'collections.price_to' | t }}</span><input type="number" name="{{ filter.max_value.param_name }}" value="{{ filter.max_value.value | money_without_currency | remove: ' ' }}" min="0" placeholder="{{ filter.range_max | money_without_currency | remove: ' ' }}"></label>
+          {%- else -%}
+            {%- for value in filter.values -%}
+              <label class="zaskrtnuti"><input type="checkbox" name="{{ value.param_name }}" value="{{ value.value }}"{% if value.active %} checked{% endif %}{% if value.count == 0 and value.active == false %} disabled{% endif %}> {{ value.label | escape }} <span class="tlumene">({{ value.count }})</span></label>
+            {%- endfor -%}
+          {%- endif -%}
+        </div>
+      </details>
+    {%- endfor -%}
+    <label class="filtr filtr--razeni"><span class="skryte">{{ 'collections.sort' | t }}</span>
+      <select name="sort_by">
+        {%- for option in collection.sort_options -%}<option value="{{ option.value }}"{% if option.value == collection.sort_by %} selected{% endif %}>{{ option.name }}</option>{%- endfor -%}
+      </select>
+    </label>
+    <noscript><button type="submit" class="tl">{{ 'collections.apply' | t }}</button></noscript>
+    {%- assign aktivni = false -%}
+    {%- for filter in collection.filters -%}{%- if filter.active_values.size > 0 or filter.min_value.value or filter.max_value.value -%}{%- assign aktivni = true -%}{%- endif -%}{%- endfor -%}
+    {%- if aktivni -%}<a class="odkaz" href="{{ collection.url }}?sort_by={{ collection.sort_by }}">{{ 'collections.clear' | t }}</a>{%- endif -%}
+    <span class="filtry-shopify__pocet">{{ 'products.count' | t: count: collection.products_count }}</span>
+  </form>
+  {%- if collection.products.size > 0 -%}
+    <ul class="produkty">{%- for p in collection.products -%}{% render 'product-card', card_product: p %}{%- endfor -%}</ul>
+  {%- else -%}
+    <p class="tlumene">{{ 'products.no_products' | t }}</p>
+  {%- endif -%}
+  {%- render 'pagination', paginate: paginate -%}
+</div>
+{%- endpaginate -%}
+{%- if collection.products.size > 0 -%}{% render 'konfigurator-profily' %}<script src="{{ 'potisk.js' | asset_url }}" defer></script>{%- endif -%}
+<script>
+  document.addEventListener('change', function (e) {
+    var f = e.target.closest('[data-filtry]');
+    if (!f) return;
+    var p = new URLSearchParams(new FormData(f));
+    [...p.keys()].forEach(function (k) { if (p.get(k) === '') p.delete(k); });
+    location.search = p.toString();
+  });
+</script>
+{% schema %}
+{
+  "name": "Kolekce",
+  "settings": [
+    {"type": "range", "id": "na_stranku", "label": "Produktů na stránku", "min": 8, "max": 48, "step": 4, "default": 24}
+  ]
+}
+{% endschema %}

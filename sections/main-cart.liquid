@@ -1,0 +1,74 @@
+<div class="obal">
+  <div class="stranka-hlava">
+    <ol class="drobky" aria-label="{{ 'general.breadcrumbs' | t }}"><li><a href="{{ routes.root_url }}">{{ 'general.home' | t }}</a></li><li>{{ 'cart.title' | t }}</li></ol>
+  </div>
+  {%- if cart.item_count == 0 -%}
+    <div class="prazdna-stranka">
+      <h1>{{ 'cart.title' | t }}</h1>
+      <p class="tlumene">{{ 'cart.empty' | t }}</p>
+      <a class="tl tl--magenta tl--velke" href="{{ section.settings.prazdny_odkaz | default: routes.all_products_collection_url }}">{{ 'cart.empty_cta' | t }}</a>
+    </div>
+  {%- else -%}
+    <form action="{{ routes.cart_url }}" method="post" class="kosik-stranka" id="kosik-formular">
+      <div>
+        <h1>{{ 'cart.title' | t }}</h1>
+        <ul class="kosik-seznam" style="gap:0">
+          {%- for item in cart.items -%}
+            <li class="kosik-radek">
+              <a class="kosik-radek__nahled" href="{{ item.url }}" data-navrh="{{ item.properties['_navrh'] | escape }}" tabindex="-1">{% render 'cart-line-image', item: item, sirka: 240 %}</a>
+              <div class="kosik-radek__info">
+                <strong><a href="{{ item.url }}">{{ item.product.title | escape }}</a></strong>
+                {%- unless item.product.has_only_default_variant -%}<span>{{ item.variant.title | escape }}</span>{%- endunless -%}
+                {% render 'cart-line-properties', item: item %}
+                <label class="pocitadlo pocitadlo--male">
+                  <span class="skryte">{{ 'products.quantity' | t }}</span>
+                  <input type="number" name="updates[]" min="0" max="999" value="{{ item.quantity }}" style="width:64px">
+                </label>
+                <a class="odkaz" href="{{ item.url_to_remove }}" style="justify-self:start;font-size:14px">{{ 'cart.remove' | t }}</a>
+              </div>
+              <div class="kosik-radek__cena">
+                {{ item.final_line_price | money }}
+                {%- if item.original_line_price > item.final_line_price -%}<br><s class="tlumene mala">{{ item.original_line_price | money }}</s>{%- endif -%}
+              </div>
+            </li>
+          {%- endfor -%}
+        </ul>
+        <button type="submit" name="update" class="tl tl--male" style="margin-top:16px">{{ 'cart.update' | t }}</button>
+      </div>
+      <aside class="kosik-souhrn-box">
+        <div class="box">
+          {%- for discount in cart.cart_level_discount_applications -%}
+            <div class="souhrn-radek"><span>{{ 'cart.discount' | t }}: {{ discount.title | escape }}</span><span>−{{ discount.total_allocated_amount | money }}</span></div>
+          {%- endfor -%}
+          <div class="souhrn-radek"><span>{{ 'cart.subtotal' | t }}</span><strong>{{ cart.total_price | money }}</strong></div>
+          <div class="dodani"><svg aria-hidden="true"><use href="#i-kalendar"/></svg><span>{{ 'products.delivery_prefix' | t }} <strong data-termin>{{ settings.dodani_text }}</strong></span></div>
+          {%- if settings.kosik_poznamka -%}
+            <label class="pole kosik-poznamka">
+              <span class="pole__popis">{{ 'cart.note' | t }} <em>{{ 'inquiry.optional' | t }}</em></span>
+              <textarea name="note" placeholder="{{ 'cart.note_placeholder' | t }}">{{ cart.note }}</textarea>
+            </label>
+          {%- endif -%}
+          <button type="submit" name="checkout" class="tl tl--magenta tl--velke tl--plna">{{ 'cart.checkout' | t }}</button>
+          {%- if additional_checkout_buttons -%}
+            <div class="dalsi-platby">{{ content_for_additional_checkout_buttons }}</div>
+          {%- endif -%}
+          <p class="tlumene mala">{{ 'cart.shipping_note' | t }}</p>
+          <ul class="vyhody" style="margin:0">
+            <li><svg aria-hidden="true"><use href="#i-tisk"/></svg><span>{{ section.settings.vyhoda_1 }}</span></li>
+            <li><svg aria-hidden="true"><use href="#i-penize"/></svg><span>{{ settings.platba_text }}</span></li>
+          </ul>
+        </div>
+      </aside>
+    </form>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Košík",
+  "settings": [
+    {"type": "url", "id": "prazdny_odkaz", "label": "Kam vede tlačítko u prázdného košíku"},
+    {"type": "text", "id": "vyhoda_1", "label": "Výhoda pod tlačítkem", "default": "Tiskneme sami ve Všechovicích od roku 2004"}
+  ]
+}
+{% endschema %}

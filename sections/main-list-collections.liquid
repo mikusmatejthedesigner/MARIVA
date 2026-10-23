@@ -1,0 +1,19 @@
+<div class="obal">
+  <div class="stranka-hlava"><h1>{{ section.settings.nadpis | escape }}</h1></div>
+  <ul class="produkty">
+    {%- for c in collections -%}
+      {%- unless c.handle == 'frontpage' -%}
+        <li class="karta">
+          <div class="karta__media"><a class="karta__obraz dlazdice--papir" href="{{ c.url }}" tabindex="-1" aria-hidden="true">
+            {%- assign obr = c.image | default: c.products.first.featured_media.preview_image -%}
+            {%- if obr -%}{{ obr | image_url: width: 600 | image_tag: loading: 'lazy', alt: c.title }}{%- endif -%}
+          </a></div>
+          <div class="karta__text"><h3><a href="{{ c.url }}">{{ c.title | escape }}</a></h3><p>{{ 'products.count' | t: count: c.products_count }}</p></div>
+        </li>
+      {%- endunless -%}
+    {%- endfor -%}
+  </ul>
+</div>
+{% schema %}
+{"name": "Seznam kolekcí", "settings": [{"type": "text", "id": "nadpis", "label": "Nadpis", "default": "Produkty podle použití"}]}
+{% endschema %}

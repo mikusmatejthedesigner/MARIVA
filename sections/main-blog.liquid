@@ -1,0 +1,21 @@
+<div class="obal">
+  <div class="stranka-hlava"><h1>{{ blog.title | escape }}</h1></div>
+  {%- paginate blog.articles by 12 -%}
+    <ul class="produkty">
+      {%- for article in blog.articles -%}
+        <li class="karta">
+          {%- if article.image -%}<div class="karta__media"><a class="karta__obraz" href="{{ article.url }}" tabindex="-1" aria-hidden="true">{{ article.image | image_url: width: 600 | image_tag: loading: 'lazy', alt: article.title }}</a></div>{%- endif -%}
+          <div class="karta__text">
+            <h3><a href="{{ article.url }}">{{ article.title | escape }}</a></h3>
+            <p>{{ article.excerpt_or_content | strip_html | truncatewords: 24 }}</p>
+            <a class="odkaz sipka" href="{{ article.url }}">{{ 'blogs.read_more' | t }}</a>
+          </div>
+        </li>
+      {%- endfor -%}
+    </ul>
+    {%- render 'pagination', paginate: paginate -%}
+  {%- endpaginate -%}
+</div>
+{% schema %}
+{"name": "Blog"}
+{% endschema %}

@@ -1,0 +1,85 @@
+{%- comment -%}
+  Karta produktu. Řídí se štítky (tags) produktu:
+  - konfigurator: tlačítko „Navrhnout“ a živý náhled trička v barvách (profil-<id>, výchozí tricko)
+  - poptavka: cena „Na poptávku“ a tlačítko „Poptat“
+  - barva-magenta | barva-zluta | barva-azur | barva-papir: barva dlaždice
+  - stitek:Text: odznak na kartě (např. stitek:Stužkovák)
+  - napis:TEXT: ukázkový nápis v živém náhledu (např. napis:TŘÍDA 4.B)
+  - ilustrace:serpa: když produkt nemá fotku, ukáže se ilustrace z motivu (assets/ilustrace-serpa.svg)
+  Parametry: card_product
+{%- endcomment -%}
+{%- liquid
+  assign konfigurator = false
+  assign poptavka = false
+  assign dlazdice = 'papir'
+  assign stitek = ''
+  assign profil = 'tricko'
+  assign napis = 'TŘÍDA 4.B'
+  assign ilustrace = ''
+  for tag in card_product.tags
+    assign tag_male = tag | downcase
+    case tag_male
+      when 'konfigurator'
+        assign konfigurator = true
+      when 'poptavka'
+        assign poptavka = true
+      when 'barva-magenta', 'barva-zluta', 'barva-azur', 'barva-papir'
+        assign dlazdice = tag_male | remove_first: 'barva-'
+    endcase
+    if tag_male contains 'stitek:'
+      assign stitek = tag | remove_first: 'stitek:' | remove_first: 'Stitek:'
+    endif
+    if tag_male contains 'profil-'
+      assign profil = tag_male | remove_first: 'profil-'
+    endif
+    if tag_male contains 'ilustrace:'
+      assign ilustrace = tag_male | split: ':' | last
+    endif
+    if tag_male contains 'napis:'
+      assign napis = tag | split: ':' | last
+    endif
+  endfor
+-%}
+<li class="karta">
+  <div class="karta__media">
+    <a class="karta__obraz dlazdice--{{ dlazdice }}" href="{{ card_product.url }}" tabindex="-1" aria-hidden="true">
+      {%- if card_product.featured_media -%}
+        {{ card_product.featured_media.preview_image | image_url: width: 720 | image_tag: loading: 'lazy', widths: '360, 540, 720', sizes: '(min-width: 1020px) 25vw, (min-width: 600px) 33vw, 50vw', alt: card_product.featured_media.alt | default: card_product.title }}
+      {%- elsif ilustrace != blank -%}
+        <img src="{{ 'ilustrace-' | append: ilustrace | append: '.svg' | asset_url }}" alt="" loading="lazy" width="400" height="400" class="karta__ilustrace">
+      {%- endif -%}
+      {%- if konfigurator -%}
+        <canvas data-render="{{ profil }}" data-napis="{{ napis | escape }}" hidden></canvas>
+      {%- endif -%}
+    </a>
+    {%- if stitek != blank -%}<span class="stitek{% unless konfigurator %} stitek--zluta{% endunless %}">{{ stitek }}</span>{%- endif -%}
+    {%- if konfigurator -%}
+      {%- assign moznost_barva = settings.moznost_barva | downcase -%}
+      {%- for option in card_product.options_with_values -%}
+        {%- assign nazev_moznosti = option.name | downcase -%}
+        {%- if nazev_moznosti == moznost_barva -%}
+          <div class="karta__barvy" data-karta-barvy aria-label="{{ 'products.try_color' | t }}" hidden>
+            {%- for value in option.values limit: 5 -%}
+              <button type="button" data-barva="{{ value | escape }}" aria-label="{{ value | escape }}" aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}"></button>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    {%- endif -%}
+  </div>
+  <div class="karta__text">
+    <h3><a href="{{ card_product.url }}">{{ card_product.title | escape }}</a></h3>
+    {%- assign perex = card_product.metafields.custom.perex.value | default: card_product.description | strip_html | truncatewords: 18 -%}
+    <p>{{ perex }}</p>
+    <div class="karta__cena">
+      <div>{% render 'price', product: card_product %}</div>
+      {%- if konfigurator -%}
+        <a class="tl tl--magenta" href="{{ card_product.url }}">{{ 'products.design' | t }}</a>
+      {%- elsif poptavka -%}
+        <a class="tl" href="{{ card_product.url }}#poptavka">{{ 'products.inquire' | t }}</a>
+      {%- else -%}
+        <a class="tl" href="{{ card_product.url }}">{{ 'products.add_to_cart' | t }}</a>
+      {%- endif -%}
+    </div>
+  </div>
+</li>

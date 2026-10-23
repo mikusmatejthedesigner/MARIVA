@@ -1,0 +1,28 @@
+<div class="obal">
+  <div class="stranka-hlava">
+    <h1>{{ 'search.title' | t }}</h1>
+    <form action="{{ routes.search_url }}" method="get" role="search" class="hledani">
+      <input type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ 'search.placeholder' | t }}" aria-label="{{ 'search.placeholder' | t }}">
+      <input type="hidden" name="type" value="product">
+      <button type="submit" class="tl tl--magenta">{{ 'general.search' | t }}</button>
+    </form>
+    {%- if search.performed -%}<p>{{ 'search.results' | t: terms: search.terms }}</p>{%- endif -%}
+  </div>
+  {%- if search.performed -%}
+    {%- paginate search.results by 24 -%}
+      {%- if search.results_count > 0 -%}
+        <ul class="produkty">
+          {%- for item in search.results -%}
+            {%- if item.object_type == 'product' -%}{% render 'product-card', card_product: item %}{%- else -%}<li class="karta"><div class="karta__text"><h3><a href="{{ item.url }}">{{ item.title | escape }}</a></h3></div></li>{%- endif -%}
+          {%- endfor -%}
+        </ul>
+      {%- else -%}
+        <p class="tlumene">{{ 'search.none' | t }}</p>
+      {%- endif -%}
+      {%- render 'pagination', paginate: paginate -%}
+    {%- endpaginate -%}
+  {%- endif -%}
+</div>
+{% schema %}
+{"name": "Vyhledávání"}
+{% endschema %}
