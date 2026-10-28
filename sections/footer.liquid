@@ -6,9 +6,9 @@
           {%- when 'znacka' -%}
             <div class="paticka__znacka" {{ block.shopify_attributes }}>
               {%- if settings.logo != blank -%}
-                {{ settings.logo | image_url: height: 120 | image_tag: alt: shop.name, style: 'height: 44px; width: auto; margin-bottom: 16px' }}
+                {{ settings.logo | image_url: height: 120 | image_tag: alt: settings.nazev, style: 'height: 44px; width: auto; margin-bottom: 16px' }}
               {%- else -%}
-                <img src="{{ 'logo.svg' | asset_url }}" alt="{{ shop.name | escape }}" width="176" height="44">
+                <img src="{{ 'logo.svg' | asset_url }}" alt="{{ settings.nazev | default: shop.name | escape }}" width="176" height="44">
               {%- endif -%}
               <div class="richtext" style="color:inherit;font-size:15px">{{ block.settings.text }}</div>
             </div>
@@ -37,7 +37,7 @@
     </div>
     <div class="paticka__platby">{%- render 'platby' -%}</div>
     <div class="paticka__spodek">
-      <span>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}{% if settings.provozovatel != blank %} · {{ settings.provozovatel }}{% endif %}</span>
+      <span>&copy; {{ 'now' | date: '%Y' }} {{ settings.nazev | default: shop.name }}{% if settings.provozovatel != blank %} · {{ settings.provozovatel }}{% endif %}</span>
       <span>{{ section.settings.spodni_text }}</span>
     </div>
   </div>

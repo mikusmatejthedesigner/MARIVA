@@ -1,0 +1,11 @@
+{%- comment -%}
+  Malý obrázek do sekcí úvodu. Přednost: vlastní obrázek > fotka vybraného produktu > ilustrace z motivu.
+  Parametry: obrazek (image), produkt (product), ilustrace (id), sirka (px)
+{%- endcomment -%}
+{%- if obrazek != blank -%}
+  {{ obrazek | image_url: width: sirka | image_tag: alt: '', loading: 'lazy', widths: sirka }}
+{%- elsif produkt != blank and produkt.featured_media -%}
+  {{ produkt.featured_media.preview_image | image_url: width: sirka | image_tag: alt: '', loading: 'lazy', widths: sirka }}
+{%- elsif ilustrace != blank -%}
+  <img src="{{ 'ilustrace-' | append: ilustrace | append: '.svg' | asset_url }}" alt="" width="{{ sirka }}" height="{{ sirka }}" loading="lazy">
+{%- endif -%}

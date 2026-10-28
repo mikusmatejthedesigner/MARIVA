@@ -60,13 +60,18 @@
     const typ = profil.typy.find((t) => t.nazev.toLowerCase() === strih) || profil.typy[0];
     const klic = typ.id;
     if (!pohledy[klic]) pohledy[klic] = Potisk.nactiPohled(profil, typ.id, profil.pohledy[0].id, '');
-    const text = (napis && napis.value.trim()) || platno.dataset.vzor || '';
-    const zdroj = await Potisk.vykresliNapis({text: zalom(text), pismo: 'bezpatkove', tucne: true, barva: Potisk.svetlost(hex) < 0.35 ? '#FFFFFF' : '#1B1424'});
+    const text = napis ? napis.value.trim() : '';
     const data = await pohledy[klic];
     if (moje !== token) return;
     if (!scena) scena = new Potisk.Scena(platno, {okraj: 0.03});
-    if (!vrstva) { vrstva = Potisk.novaVrstva('text', zdroj, {u: 0.5, v: 0.24, s: 0.92}); scena.vrstvy.push(vrstva); }
-    else { vrstva.zdroj = zdroj; vrstva.pomer = zdroj.height / zdroj.width; vrstva.s = 0.92; }
+    if (!text) { // bez nápisu čisté tričko
+      if (vrstva) { scena.vrstvy.splice(scena.vrstvy.indexOf(vrstva), 1); vrstva = null; }
+    } else {
+      const zdroj = await Potisk.vykresliNapis({text: zalom(text), pismo: 'bezpatkove', tucne: true, barva: Potisk.svetlost(hex) < 0.35 ? '#FFFFFF' : '#1B1424'});
+      if (moje !== token) return;
+      if (!vrstva) { vrstva = Potisk.novaVrstva('text', zdroj, {u: 0.5, v: 0.24, s: 0.92}); scena.vrstvy.push(vrstva); }
+      else { vrstva.zdroj = zdroj; vrstva.pomer = zdroj.height / zdroj.width; vrstva.s = 0.92; }
+    }
     scena.nastav(data, hex);
   }
   const naplanuj = () => { clearTimeout(cekani); cekani = setTimeout(() => prekresli().catch(() => {}), 80); };

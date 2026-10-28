@@ -39,13 +39,14 @@
   {
     "name": "Kontakt a firma",
     "settings": [
+      {"type": "text", "id": "nazev", "label": "Název obchodu na webu", "default": "Tiskárna MARIVA", "info": "Ukáže se v patičce, v záložce prohlížeče a při sdílení. Bez vyplnění se použije název z Nastavení > Obchod."},
       {"type": "text", "id": "telefon", "label": "Telefon", "default": "581 622 009"},
       {"type": "text", "id": "mobil", "label": "Mobil", "default": "776 336 533"},
       {"type": "text", "id": "email", "label": "E-mail", "default": "info@tiskarnamariva.cz"},
       {"type": "text", "id": "adresa", "label": "Adresa provozovny", "default": "Všechovice 212, 753 53 Všechovice"},
       {"type": "url", "id": "mapa", "label": "Odkaz na mapu"},
       {"type": "text", "id": "rok_zalozeni", "label": "Tiskneme od roku", "default": "2004"},
-      {"type": "textarea", "id": "provozovatel", "label": "Provozovatel (patička)", "default": "Provozovatel: Marta Buksová, IČO 48904163, Libosváry 49, 768 61 Loukov"}
+      {"type": "textarea", "id": "provozovatel", "label": "Provozovatel (patička)", "info": "Např. jméno, IČO a sídlo. Prázdné pole se v patičce neukáže."}
     ]
   },
   {

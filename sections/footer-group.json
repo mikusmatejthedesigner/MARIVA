@@ -6,7 +6,7 @@
       "type": "footer",
       "blocks": {
         "znacka": {"type": "znacka", "settings": {"text": "<p>Tiskárna ve Všechovicích. Potiskneme trička, mikiny, šerpy, stužky, hrnky a další věci pro školy, spolky, firmy i jednotlivce.</p>"}},
-        "menu_hlavni": {"type": "menu", "settings": {"nadpis": "Nakupovat", "menu": "main-menu"}},
+        "menu_hlavni": {"type": "menu", "settings": {"nadpis": "Nakupovat", "menu": "nakupovat"}},
         "menu_info": {"type": "menu", "settings": {"nadpis": "Informace", "menu": "footer"}},
         "kontakt": {"type": "kontakt", "settings": {"nadpis": "Kontakt"}}
       },

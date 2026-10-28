@@ -1,11 +1,11 @@
 <header class="hlavicka" data-hlavicka>
   <div class="obal hlavicka__obal">
-    <a class="logo" href="{{ routes.root_url }}" aria-label="{{ shop.name | escape }}">
+    <a class="logo" href="{{ routes.root_url }}" aria-label="{{ settings.nazev | default: shop.name | escape }}">
       {%- if settings.logo != blank -%}
         {%- assign sirka_loga = settings.logo_vyska | times: settings.logo.aspect_ratio | round -%}
-        {{ settings.logo | image_url: height: 160 | image_tag: height: settings.logo_vyska, width: sirka_loga, alt: shop.name, style: 'height: var(--logo-vyska); width: auto' }}
+        {{ settings.logo | image_url: height: 160 | image_tag: height: settings.logo_vyska, width: sirka_loga, alt: settings.nazev, style: 'height: var(--logo-vyska); width: auto' }}
       {%- else -%}
-        <img src="{{ 'logo.svg' | asset_url }}" alt="{{ shop.name | escape }}" width="160" height="40" style="height: var(--logo-vyska); width: auto">
+        <img src="{{ 'logo.svg' | asset_url }}" alt="{{ settings.nazev | default: shop.name | escape }}" width="160" height="40" style="height: var(--logo-vyska); width: auto">
       {%- endif -%}
       {%- if section.settings.podtitul != blank -%}<span>{{ section.settings.podtitul | newline_to_br }}</span>{%- endif -%}
     </a>

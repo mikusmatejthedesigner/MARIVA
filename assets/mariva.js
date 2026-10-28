@@ -240,14 +240,16 @@
       sc.data = await Potisk.nactiPohled(profil, profil.typy[0].id, profil.pohledy[0].id, '');
     }
     const hex = barvaHex(c.dataset.barva);
-    const text = (c.dataset.napis || '').replace(/\\n/g, '\n');
-    const zdroj = await Potisk.vykresliNapis({text: text.indexOf('\n') < 0 && text.length > 9 && text.indexOf(' ') > 0 ? text.replace(/ (?=\S+$)/, '\n') : text, pismo: 'bezpatkove', tucne: true, barva: Potisk.svetlost(hex) < 0.35 ? '#ffffff' : '#1B1424'});
-    if (!sc.napis) {
-      sc.napis = Potisk.novaVrstva('text', zdroj, {u: 0.5, v: 0.2, s: 0.66});
-      sc.scena.vrstvy.push(sc.napis);
-    } else {
-      sc.napis.zdroj = zdroj;
-      sc.napis.pomer = zdroj.height / zdroj.width;
+    const text = (c.dataset.napis || '').replace(/\\n/g, '\n').trim();
+    if (text) { // ukázkový nápis jen když ho produkt má (štítek napis:…), jinak čisté tričko
+      const zdroj = await Potisk.vykresliNapis({text: text.indexOf('\n') < 0 && text.length > 9 && text.indexOf(' ') > 0 ? text.replace(/ (?=\S+$)/, '\n') : text, pismo: 'bezpatkove', tucne: true, barva: Potisk.svetlost(hex) < 0.35 ? '#ffffff' : '#1B1424'});
+      if (!sc.napis) {
+        sc.napis = Potisk.novaVrstva('text', zdroj, {u: 0.5, v: 0.2, s: 0.66});
+        sc.scena.vrstvy.push(sc.napis);
+      } else {
+        sc.napis.zdroj = zdroj;
+        sc.napis.pomer = zdroj.height / zdroj.width;
+      }
     }
     sc.scena.nastav(sc.data, hex);
     c.hidden = false;

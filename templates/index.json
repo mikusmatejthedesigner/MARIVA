@@ -105,7 +105,9 @@
             "barva": "magenta",
             "ilustrace_1": "serpa",
             "ilustrace_2": "stuzky",
-            "odkaz": "shopify://collections/maturanti"
+            "odkaz": "shopify://collections/maturanti",
+            "produkt_1": "serpa",
+            "produkt_2": "stuzky"
           }
         },
         "skupina_2": {
@@ -116,7 +118,9 @@
             "barva": "zluta",
             "ilustrace_1": "vesta",
             "ilustrace_2": "placka",
-            "odkaz": "shopify://collections/skolky"
+            "odkaz": "shopify://collections/skolky",
+            "produkt_1": "vesta",
+            "produkt_2": "placka"
           }
         },
         "skupina_3": {
@@ -127,7 +131,9 @@
             "barva": "azur",
             "ilustrace_1": "vak",
             "ilustrace_2": "ksiltovka",
-            "odkaz": "shopify://collections/sport"
+            "odkaz": "shopify://collections/sport",
+            "produkt_1": "vak",
+            "produkt_2": "ksiltovka"
           }
         },
         "skupina_4": {
@@ -138,7 +144,9 @@
             "barva": "inkoust",
             "ilustrace_1": "zastera",
             "ilustrace_2": "propiska",
-            "odkaz": "shopify://collections/firmy"
+            "odkaz": "shopify://collections/firmy",
+            "produkt_1": "zastera",
+            "produkt_2": "propiska"
           }
         },
         "skupina_5": {
@@ -149,7 +157,9 @@
             "barva": "papir",
             "ilustrace_1": "hrnek",
             "ilustrace_2": "polstarek",
-            "odkaz": "shopify://collections/darky"
+            "odkaz": "shopify://collections/darky",
+            "produkt_1": "hrnek",
+            "produkt_2": "polstarek"
           }
         }
       },
@@ -168,7 +178,10 @@
         "sezona_1": {
           "type": "sezona",
           "settings": {
-            "mesice": "9,10,11,12,1"
+            "mesice": "9,10,11,12,1",
+            "produkt_1": "serpa",
+            "produkt_2": "stuzky",
+            "produkt_3": "placka"
           }
         },
         "sezona_2": {
@@ -180,7 +193,10 @@
             "polozky": "Trička a mikiny pro třídu\nDětské šerpy na rozloučení se školkou\nPlacky a polštářky na památku\nJména na záda i na rukáv",
             "ilustrace_1": "serpa",
             "ilustrace_2": "placka",
-            "ilustrace_3": "polstarek"
+            "ilustrace_3": "polstarek",
+            "produkt_1": "serpa",
+            "produkt_2": "placka",
+            "produkt_3": "polstarek"
           }
         },
         "sezona_3": {
@@ -193,7 +209,10 @@
             "odkaz_text": "Vše pro sport a spolky",
             "ilustrace_1": "vak",
             "ilustrace_2": "ksiltovka",
-            "ilustrace_3": "rucnik"
+            "ilustrace_3": "rucnik",
+            "produkt_1": "vak",
+            "produkt_2": "ksiltovka",
+            "produkt_3": "rucnik"
           }
         }
       },

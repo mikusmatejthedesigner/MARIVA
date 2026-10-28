@@ -13,8 +13,8 @@
           <p>{{ block.settings.text | escape }}</p>
           <span class="sipka">{{ section.settings.odkaz_text | escape }}</span>
           <span class="skupina__obrazky" aria-hidden="true">
-            {%- if block.settings.obrazek_1 != blank -%}{{ block.settings.obrazek_1 | image_url: width: 240 | image_tag: alt: '' }}{%- else -%}<img src="{{ 'ilustrace-' | append: block.settings.ilustrace_1 | append: '.svg' | asset_url }}" alt="" width="116" height="116" loading="lazy">{%- endif -%}
-            {%- if block.settings.obrazek_2 != blank -%}{{ block.settings.obrazek_2 | image_url: width: 240 | image_tag: alt: '' }}{%- else -%}<img src="{{ 'ilustrace-' | append: block.settings.ilustrace_2 | append: '.svg' | asset_url }}" alt="" width="116" height="116" loading="lazy">{%- endif -%}
+            {%- render 'obrazek-produktu', obrazek: block.settings.obrazek_1, produkt: block.settings.produkt_1, ilustrace: block.settings.ilustrace_1, sirka: 320 -%}
+            {%- render 'obrazek-produktu', obrazek: block.settings.obrazek_2, produkt: block.settings.produkt_2, ilustrace: block.settings.ilustrace_2, sirka: 320 -%}
           </span>
         </a>
       {%- endfor -%}
@@ -39,9 +39,11 @@
         {"type": "text", "id": "text", "label": "Text", "default": "Šerpy, stužky, trička a mikiny pro celou třídu."},
         {"type": "url", "id": "odkaz", "label": "Odkaz", "info": "Nejlépe kolekce pro tuto skupinu."},
         {"type": "select", "id": "barva", "label": "Barva", "default": "magenta", "options": [{"value": "magenta", "label": "Magenta"}, {"value": "zluta", "label": "Žlutá"}, {"value": "azur", "label": "Azur"}, {"value": "inkoust", "label": "Tmavá"}, {"value": "papir", "label": "Bílá"}]},
-        {"type": "select", "id": "ilustrace_1", "label": "Ilustrace 1", "default": "serpa", "options": [{"value": "serpa", "label": "Šerpa"}, {"value": "stuzky", "label": "Stužky"}, {"value": "ksiltovka", "label": "Kšiltovka"}, {"value": "hrnek", "label": "Hrnek"}, {"value": "polstarek", "label": "Polštářek"}, {"value": "placka", "label": "Placka"}, {"value": "propiska", "label": "Propiska"}, {"value": "vak", "label": "Vak"}, {"value": "rucnik", "label": "Ručník"}, {"value": "vesta", "label": "Vesta"}, {"value": "klicenka", "label": "Klíčenka"}, {"value": "puzzle", "label": "Puzzle"}, {"value": "zastera", "label": "Zástěra"}]},
+        {"type": "product", "id": "produkt_1", "label": "Produkt 1", "info": "Ukáže se jeho fotka."},
+        {"type": "product", "id": "produkt_2", "label": "Produkt 2"},
+        {"type": "select", "id": "ilustrace_1", "label": "Ilustrace 1 (když produkt nemá fotku)", "default": "serpa", "options": [{"value": "serpa", "label": "Šerpa"}, {"value": "stuzky", "label": "Stužky"}, {"value": "ksiltovka", "label": "Kšiltovka"}, {"value": "hrnek", "label": "Hrnek"}, {"value": "polstarek", "label": "Polštářek"}, {"value": "placka", "label": "Placka"}, {"value": "propiska", "label": "Propiska"}, {"value": "vak", "label": "Vak"}, {"value": "rucnik", "label": "Ručník"}, {"value": "vesta", "label": "Vesta"}, {"value": "klicenka", "label": "Klíčenka"}, {"value": "puzzle", "label": "Puzzle"}, {"value": "zastera", "label": "Zástěra"}]},
         {"type": "image_picker", "id": "obrazek_1", "label": "Vlastní obrázek 1 (místo ilustrace)"},
-        {"type": "select", "id": "ilustrace_2", "label": "Ilustrace 2", "default": "stuzky", "options": [{"value": "serpa", "label": "Šerpa"}, {"value": "stuzky", "label": "Stužky"}, {"value": "ksiltovka", "label": "Kšiltovka"}, {"value": "hrnek", "label": "Hrnek"}, {"value": "polstarek", "label": "Polštářek"}, {"value": "placka", "label": "Placka"}, {"value": "propiska", "label": "Propiska"}, {"value": "vak", "label": "Vak"}, {"value": "rucnik", "label": "Ručník"}, {"value": "vesta", "label": "Vesta"}, {"value": "klicenka", "label": "Klíčenka"}, {"value": "puzzle", "label": "Puzzle"}, {"value": "zastera", "label": "Zástěra"}]},
+        {"type": "select", "id": "ilustrace_2", "label": "Ilustrace 2 (když produkt nemá fotku)", "default": "stuzky", "options": [{"value": "serpa", "label": "Šerpa"}, {"value": "stuzky", "label": "Stužky"}, {"value": "ksiltovka", "label": "Kšiltovka"}, {"value": "hrnek", "label": "Hrnek"}, {"value": "polstarek", "label": "Polštářek"}, {"value": "placka", "label": "Placka"}, {"value": "propiska", "label": "Propiska"}, {"value": "vak", "label": "Vak"}, {"value": "rucnik", "label": "Ručník"}, {"value": "vesta", "label": "Vesta"}, {"value": "klicenka", "label": "Klíčenka"}, {"value": "puzzle", "label": "Puzzle"}, {"value": "zastera", "label": "Zástěra"}]},
         {"type": "image_picker", "id": "obrazek_2", "label": "Vlastní obrázek 2 (místo ilustrace)"}
       ]
     }

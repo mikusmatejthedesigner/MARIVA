@@ -699,3 +699,9 @@ fieldset { min-width: 0; margin: 0; padding: 0; border: 0; }
   .duvera li { flex-direction: column; align-items: flex-start; gap: 8px; padding: 12px; font-size: 13px; }
   .duvera strong { font-size: 14px; }
 }
+
+/* Fotky produktů (průhledné PNG s okrajem): větší v kartách, stín i na stránce produktu */
+.karta__obraz img { width: 96%; height: 96%; }
+.galerie__hlavni img { width: 86%; height: 86%; filter: drop-shadow(0 22px 26px rgba(27, 20, 36, .18)); }
+.skupina__obrazky img { width: 124px; height: 124px; object-fit: contain; }
+.sezona__obraz img { height: auto; aspect-ratio: 1 / 1; object-fit: contain; }
